@@ -1,15 +1,15 @@
 import React from "react";
+import Button from "./Button";
 
 function Navbar() {
   return (
     <div className="bg-white shadow-md w-full justify-between flex py-4 px-4 items-center">
-      <div>Real Auction</div>
-      <button
-        type="button"
-        className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700"
-      >
-        로그인
-      </button>
+      <div className="text-xl font-extrabold text-gray-900">Real Auction</div>
+      <Button
+        label="로그인"
+        color="blue"
+        onClick={() => console.log("hello")}
+      ></Button>
     </div>
   );
 }
