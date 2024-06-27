@@ -20,13 +20,21 @@ function Navbar() {
     <div className="bg-white shadow-md w-full justify-between flex py-4 px-4 items-center">
       <div className="text-xl font-extrabold text-gray-900">Real Auction</div>
       {user == null ? (
-        <Button label="로그인" color="blue" onClick={loginBtnHandler}></Button>
+        <div className="w-1/4">
+          <Button
+            label="로그인"
+            color="blue"
+            onClick={loginBtnHandler}
+          ></Button>
+        </div>
       ) : (
-        <Button
-          label="로그아웃"
-          color="blue"
-          onClick={logoutBtnHandler}
-        ></Button>
+        <div className="w-1/4">
+          <Button
+            label="로그아웃"
+            color="blue"
+            onClick={logoutBtnHandler}
+          ></Button>
+        </div>
       )}
     </div>
   );
