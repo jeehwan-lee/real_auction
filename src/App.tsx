@@ -9,6 +9,7 @@ import NoticeList from "./pages/NoticeList";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import SignIn from "./pages/SignIn";
+import PrivateRoute from "./components/auth/PrivateRoute";
 
 function App() {
   return (
@@ -19,9 +20,30 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<SearchList />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/notice" element={<NoticeList />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/register"
+              element={
+                <PrivateRoute>
+                  <Register />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/notice"
+              element={
+                <PrivateRoute>
+                  <NoticeList />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              }
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/signIn" element={<SignIn />} />
           </Routes>
