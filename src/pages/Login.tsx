@@ -1,13 +1,14 @@
 import React from "react";
 import Input from "../components/shared/Input";
+import Spacing from "../components/shared/Spacing";
 
 function Login() {
   return (
     <div>
       <div className="text-xl font-bold">로그인</div>
-      <div className="h-4"></div>
+      <Spacing size={4} />
       <Input placeholder="아이디" />
-      <div className="h-6"></div>
+      <Spacing size={6} />
       <Input placeholder="비밀번호" />
     </div>
   );
