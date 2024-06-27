@@ -7,12 +7,12 @@ import { RxHome } from "react-icons/rx";
 
 function BottomTab() {
   return (
-    <div className="bg-white shadow-md justify-between flex py-4 px-4 items-center fixed bottom-0 z-50 w-[430px]">
-      <RxHome className="text-3xl" />
-      <IoIosSearch className="text-4xl" />
-      <CiCirclePlus className="text-4xl" />
-      <CiBellOn className="text-4xl" />
-      <VscAccount className="text-3xl" />
+    <div className="bg-white shadow-md justify-between flex py-4 px-6 items-center fixed bottom-0 z-50 w-[430px]">
+      <RxHome className="text-3xl text-gray-800  hover:text-gray-800 cursor-pointer" />
+      <IoIosSearch className="text-4xl text-gray-400 hover:text-gray-800 cursor-pointer" />
+      <CiCirclePlus className="text-4xl text-gray-400  hover:text-gray-800 cursor-pointer" />
+      <CiBellOn className="text-4xl text-gray-400  hover:text-gray-800 cursor-pointer" />
+      <VscAccount className="text-3xl text-gray-400  hover:text-gray-800 cursor-pointer" />
     </div>
   );
 }
