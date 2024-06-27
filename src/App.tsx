@@ -7,6 +7,8 @@ import SearchList from "./pages/SearchList";
 import Register from "./pages/Register";
 import NoticeList from "./pages/NoticeList";
 import Profile from "./pages/Profile";
+import Login from "./pages/Login";
+import SignIn from "./pages/SignIn";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/notice" element={<NoticeList />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signIn" element={<SignIn />} />
           </Routes>
         </main>
         <BottomTab />
