@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import SignIn from "./pages/SignIn";
 import PrivateRoute from "./components/auth/PrivateRoute";
+import Spacing from "./components/shared/Spacing";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <main className="p-6">
+          <div className="mt-[80px]"></div>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<SearchList />} />
