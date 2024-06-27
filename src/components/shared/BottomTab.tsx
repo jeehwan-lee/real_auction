@@ -10,7 +10,7 @@ function BottomTab() {
   const location = useLocation().pathname;
 
   return (
-    <div className="bg-white shadow-md justify-between flex py-4 px-6 items-center fixed bottom-0 z-50 w-[430px]">
+    <div className="bg-white shadow-md justify-between flex py-4 px-6 items-center fixed bottom-0 z-50 w-full max-w-[430px]">
       <Link to="/">
         <RxHome
           className={`text-3xl  ${
