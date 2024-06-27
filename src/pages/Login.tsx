@@ -4,11 +4,12 @@ import Spacing from "../components/shared/Spacing";
 import Button from "../components/shared/Button";
 import Flex from "../components/shared/Flex";
 import { Link } from "react-router-dom";
+import Text from "../components/shared/Text";
 
 function Login() {
   return (
     <div className="my-auto">
-      <div className="text-xl font-bold">로그인</div>
+      <Text label="로그인" color="black" size="xl" bold={true} />
       <Spacing size={4} />
       <Input placeholder="아이디" />
       <Spacing size={6} />
@@ -17,9 +18,9 @@ function Login() {
       <Button label="로그인" />
       <Spacing size={6} />
       <Flex>
-        <div className="text-gray-400">아직 계정이 없으신가요?</div>
+        <Text label="아직 계정이 없으신가요?" color="gray-400" size="base" />
         <Link to="/signIn">
-          <div className="text-gray-600 focus:cursor-pointer">회원가입</div>
+          <Text label="회원가입" color="gray-600" size="base" />
         </Link>
       </Flex>
     </div>

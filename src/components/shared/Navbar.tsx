@@ -2,6 +2,7 @@ import React from "react";
 import Button from "./Button";
 import { useNavigate } from "react-router";
 import useUser from "../../hooks/auth/userUser";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const user = useUser();
@@ -18,7 +19,9 @@ function Navbar() {
 
   return (
     <div className="bg-white shadow-md w-full justify-between flex py-4 px-4 items-center">
-      <div className="text-xl font-extrabold text-gray-900">Real Auction</div>
+      <Link to="/">
+        <div className="text-xl font-extrabold text-gray-900">Real Auction</div>
+      </Link>
       {user == null ? (
         <div className="w-1/4">
           <Button
