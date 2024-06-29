@@ -10,13 +10,13 @@ function Login() {
   return (
     <div className="my-auto">
       <Text label="로그인" color="black" size="xl" bold={true} />
-      <Spacing size={4} />
+      <div className="h-[24px]"></div>
       <Input placeholder="아이디" />
-      <Spacing size={6} />
+      <div className="h-[24px]"></div>
       <Input placeholder="비밀번호" />
-      <Spacing size={6} />
+      <div className="h-[24px]"></div>
       <Button label="로그인" />
-      <Spacing size={6} />
+      <div className="h-[10px]"></div>
       <Flex>
         <Text label="아직 계정이 없으신가요?" color="gray-400" size="base" />
         <Link to="/signIn">
