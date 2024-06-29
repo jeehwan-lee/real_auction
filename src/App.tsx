@@ -18,7 +18,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <main className="p-6">
-          <div className="mt-[80px]"></div>
+          <div className="mt-[70px]"></div>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<SearchList />} />

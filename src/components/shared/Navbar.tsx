@@ -18,7 +18,7 @@ function Navbar() {
   };
 
   return (
-    <div className="bg-white shadow-md fixed top-0 z-50 w-full max-w-[430px] justify-between flex py-4 px-4 items-center">
+    <div className="bg-white shadow-md fixed top-0 z-50 w-full max-w-[430px] justify-between flex py-3 px-4 items-center">
       <Link to="/">
         <div className="text-xl font-extrabold text-gray-900">Real Auction</div>
       </Link>
