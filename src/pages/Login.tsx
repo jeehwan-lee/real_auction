@@ -3,12 +3,18 @@ import Input from "../components/shared/Input";
 import Spacing from "../components/shared/Spacing";
 import Button from "../components/shared/Button";
 import Flex from "../components/shared/Flex";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Text from "../components/shared/Text";
 import { LoginInfo } from "../models/login";
 import { login } from "../apis/login";
+import { useSetRecoilState } from "recoil";
+import { userAtom } from "../store/atom/user";
 
 function Login() {
+  const setUser = useSetRecoilState(userAtom);
+
+  const navigate = useNavigate();
+
   const [loginInfo, setLoginInfo] = useState<LoginInfo>({
     email: "",
     password: "",
@@ -29,8 +35,12 @@ function Login() {
       const response = await login(loginInfo);
 
       if (response) {
-        localStorage.setItem("accessToken", response);
+        localStorage.setItem("accessToken", response.token);
+
+        setUser({ email: response.email, name: response.name });
       }
+
+      navigate("/");
     } catch (error) {
       alert("아이디와 비밀번호를 확인하세요");
     }
