@@ -69,7 +69,7 @@ function Login() {
       <div className="h-[24px]"></div>
       <Button label="로그인" onClick={() => onSubmit()} />
       <div className="h-[10px]"></div>
-      <Flex>
+      <Flex direction="flex-row">
         <Text label="아직 계정이 없으신가요?" color="gray-400" size="base" />
         <Link to="/signIn">
           <Text label="회원가입" color="gray-600" size="base" />

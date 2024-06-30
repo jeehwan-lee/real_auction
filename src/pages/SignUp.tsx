@@ -63,7 +63,7 @@ function SignIn() {
       <div className="h-[24px]"></div>
       <Text label="이메일" color="black" size="lg" />
       <div className="h-[10px]"></div>
-      <Flex className="relative">
+      <Flex className="relative" direction="flex-row">
         <Input
           placeholder="이메일을 입력해주세요"
           name="email"
@@ -97,7 +97,7 @@ function SignIn() {
       <div className="h-[24px]"></div>
       <Text label="닉네임" color="black" size="lg" />
       <div className="h-[10px]"></div>
-      <Flex className="relative">
+      <Flex className="relative" direction="flex-row">
         <Input
           placeholder="닉네임 입력 (4~8자리)"
           name="name"
@@ -119,7 +119,7 @@ function SignIn() {
       )}
       <Button label="회원가입" onClick={() => onSubmit()} />
       <div className="h-[10px]"></div>
-      <Flex>
+      <Flex direction="flex-row">
         <Text label="기존에 계정이 있으신가요?" color="gray-400" size="base" />
         <Link to="/login">
           <Text label="로그인" color="gray-600" size="base" />
