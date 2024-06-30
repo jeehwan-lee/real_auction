@@ -8,7 +8,7 @@ import Register from "./pages/Register";
 import NoticeList from "./pages/NoticeList";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
-import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import Spacing from "./components/shared/Spacing";
 
@@ -47,7 +47,7 @@ function App() {
               }
             />
             <Route path="/login" element={<Login />} />
-            <Route path="/signIn" element={<SignIn />} />
+            <Route path="/signIn" element={<SignUp />} />
           </Routes>
         </main>
         <BottomTab />
