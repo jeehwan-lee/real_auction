@@ -6,6 +6,7 @@ import Flex from "../components/shared/Flex";
 import { Link } from "react-router-dom";
 import Text from "../components/shared/Text";
 import { LoginInfo } from "../models/login";
+import { login } from "../apis/login";
 
 function Login() {
   const [loginInfo, setLoginInfo] = useState<LoginInfo>({
@@ -25,7 +26,7 @@ function Login() {
 
   const onSubmit = async () => {
     try {
-      console.log("hello");
+      await login(loginInfo).then((data) => console.log(data));
     } catch (error) {
       alert("아이디와 비밀번호를 확인하세요");
     }
@@ -37,7 +38,7 @@ function Login() {
       <div className="h-[24px]"></div>
       <Input
         placeholder="이메일"
-        name="id"
+        name="email"
         value={loginInfo.email}
         onChange={onChange}
         onKeyDown={onKeyDown}
