@@ -8,38 +8,35 @@ import Text from "../components/shared/Text";
 import { SignUpInfo } from "../models/signUp";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../store/atom/user";
+import { ProfileInfo } from "../models/profile";
 
 function Profile() {
   const [user] = useRecoilState(userAtom);
 
-  const expEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
   const expPassword =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
   const expName = /^[A-Za-z]{4,8}$/;
 
-  const [signUpInfo, setSignUpInfo] = useState<SignUpInfo>({
-    email: "",
+  const [profileInfo, setProfileInfo] = useState<ProfileInfo>({
+    email: user?.email || "",
     password: "",
     passwordCheck: "",
-    name: "",
+    name: user?.name || "",
+    photoUrl: user?.photoUrl || "",
   });
 
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const isValidSignUpInfo = () => {
-    if (expEmail.test(signUpInfo.email) === false) {
-      return "이메일 형식을 확인하세요";
-    }
-
-    if (expPassword.test(signUpInfo.password) === false) {
+  const isValidProfileInfo = () => {
+    if (expPassword.test(profileInfo.password) === false) {
       return "비밀번호는 문자, 숫자, 특수문자 포함 8~20자리입니다";
     }
 
-    if (signUpInfo.password !== signUpInfo.passwordCheck) {
+    if (profileInfo.password !== profileInfo.passwordCheck) {
       return "비밀번호가 일치하지 않습니다";
     }
 
-    if (expName.test(signUpInfo.name) === false) {
+    if (expName.test(profileInfo.name) === false) {
       return "닉네임은 4자이상 8자이하입니다";
     }
 
@@ -47,18 +44,18 @@ function Profile() {
   };
 
   const onChange = (e: { target: { name: any; value: any } }) => {
-    setSignUpInfo({ ...signUpInfo, [e.target.name]: e.target.value });
+    setProfileInfo({ ...profileInfo, [e.target.name]: e.target.value });
   };
 
   const onSubmit = () => {
-    if (isValidSignUpInfo() !== "") {
-      setErrorMessage(isValidSignUpInfo());
+    if (isValidProfileInfo() !== "") {
+      setErrorMessage(isValidProfileInfo());
       return;
     }
 
     setErrorMessage("");
 
-    console.log(signUpInfo);
+    console.log(profileInfo);
   };
 
   return (
@@ -70,7 +67,7 @@ function Profile() {
           src="https://firebasestorage.googleapis.com/v0/b/lovetrip-83cb0.appspot.com/o/image%2Fprofile%2F1718116694908?alt=media&token=cbe35da1-7452-4f15-987c-fd3c830c2253"
         />
         <div className="h-[10px]"></div>
-        <Text label={user?.email as string} color="black" size="lg" />
+        <Text label={profileInfo.email} color="black" size="lg" />
       </Flex>
       <div className="h-[16px]"></div>
       <Text label="닉네임" color="black" size="lg" />
@@ -79,7 +76,7 @@ function Profile() {
         <Input
           placeholder="닉네임 입력 (4~8자리)"
           name="name"
-          value={signUpInfo.name}
+          value={profileInfo.name}
           onChange={onChange}
         />
         <div className="w-[96px] absolute top-0 right-0">
@@ -92,7 +89,7 @@ function Profile() {
       <Input
         placeholder="비밀번호 (문자, 숫자, 특수문자 포함 8~20자리)"
         name="password"
-        value={signUpInfo.password}
+        value={profileInfo.password}
         type="password"
         onChange={onChange}
       />
@@ -102,11 +99,19 @@ function Profile() {
       <Input
         placeholder="비밀번호를 재입력하세요"
         name="passwordCheck"
-        value={signUpInfo.passwordCheck}
+        value={profileInfo.passwordCheck}
         type="password"
         onChange={onChange}
       />
       <div className="h-[24px]"></div>
+      {errorMessage !== "" ? (
+        <>
+          <Text label={errorMessage} color="red-400" size="sm" />
+          <div className="h-[10px]"></div>
+        </>
+      ) : (
+        ""
+      )}
       <Button label="수정하기" onClick={() => onSubmit()} />
     </div>
   );

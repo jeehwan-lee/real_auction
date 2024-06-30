@@ -37,7 +37,11 @@ function Login() {
       if (response) {
         localStorage.setItem("accessToken", response.token);
 
-        setUser({ email: response.email, name: response.name });
+        setUser({
+          email: response.email,
+          name: response.name,
+          photoUrl: response.photoUrl,
+        });
       }
 
       navigate("/");
