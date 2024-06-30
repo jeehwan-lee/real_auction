@@ -26,7 +26,11 @@ function Login() {
 
   const onSubmit = async () => {
     try {
-      await login(loginInfo).then((data) => console.log(data));
+      const response = await login(loginInfo);
+
+      if (response) {
+        localStorage.setItem("accessToken", response);
+      }
     } catch (error) {
       alert("아이디와 비밀번호를 확인하세요");
     }

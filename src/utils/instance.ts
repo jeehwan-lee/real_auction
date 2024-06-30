@@ -1,12 +1,11 @@
 import axios from "axios";
 
 const defaultAPI = (url: string, options?: any) => {
-  console.log(process.env.REACT_APP_BASE_URL);
   return axios.create({ baseURL: url, ...options });
 };
 
 const authAPI = (url: string, options?: any) => {
-  const token = "dddd";
+  const token = localStorage.getItem("accessToken");
 
   return axios.create({
     baseURL: url,
@@ -17,7 +16,5 @@ const authAPI = (url: string, options?: any) => {
   });
 };
 
-export const defaultInstance = defaultAPI(
-  process.env.REACT_APP_BASE_URL as string
-);
-export const autnInstance = authAPI(process.env.REACT_APP_BASE_URL as string);
+export const defaultInstance = defaultAPI(process.env.REACT_APP_BASE_URL);
+export const autnInstance = authAPI(process.env.REACT_APP_BASE_URL);
