@@ -1,7 +1,15 @@
-import React from "react";
+import React, { HTMLAttributes } from "react";
 
-function Flex({ children }: { children: React.ReactNode }) {
-  return <div className="flex justify-between">{children}</div>;
+interface FlexProps extends HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+}
+
+function Flex({ children, ...props }: FlexProps) {
+  return (
+    <div className="flex justify-between" {...props}>
+      {children}
+    </div>
+  );
 }
 
 export default Flex;

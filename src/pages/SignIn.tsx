@@ -13,7 +13,12 @@ function SignIn() {
       <div className="h-[24px]"></div>
       <Text label="이메일" color="black" size="lg" />
       <div className="h-[10px]"></div>
-      <Input placeholder="이메일을 입력해주세요" />
+      <Flex className="relative">
+        <Input placeholder="이메일을 입력해주세요" />
+        <div className="w-[96px] absolute top-0 right-0">
+          <Button label="중복확인" />
+        </div>
+      </Flex>
       <div className="h-[24px]"></div>
       <Text label="비밀번호" color="black" size="lg" />
       <div className="h-[10px]"></div>
@@ -25,7 +30,12 @@ function SignIn() {
       <div className="h-[24px]"></div>
       <Text label="닉네임" color="black" size="lg" />
       <div className="h-[10px]"></div>
-      <Input placeholder="닉네임 입력 (4~8자리)" />
+      <Flex className="relative">
+        <Input placeholder="닉네임 입력 (4~8자리)" />
+        <div className="w-[96px] absolute top-0 right-0">
+          <Button label="중복확인" />
+        </div>
+      </Flex>
       <div className="h-[24px]"></div>
       <Button label="회원가입" />
       <div className="h-[10px]"></div>
