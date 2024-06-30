@@ -1,11 +1,12 @@
 import React from "react";
 import Button from "./Button";
 import { useNavigate } from "react-router";
-import useUser from "../../hooks/auth/userUser";
 import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { userAtom } from "../../store/atom/user";
 
 function Navbar() {
-  const user = useUser();
+  const [user, setUser] = useRecoilState(userAtom);
 
   const navigate = useNavigate();
 
@@ -14,7 +15,10 @@ function Navbar() {
   };
 
   const logoutBtnHandler = () => {
-    console.log("logout");
+    localStorage.removeItem("accessToken");
+    setUser(null);
+
+    navigate("/");
   };
 
   return (

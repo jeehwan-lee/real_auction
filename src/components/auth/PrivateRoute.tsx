@@ -1,9 +1,10 @@
 import React from "react";
-import useUser from "../../hooks/auth/userUser";
 import { Navigate } from "react-router";
+import { useRecoilState } from "recoil";
+import { userAtom } from "../../store/atom/user";
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
-  const user = useUser();
+  const user = useRecoilState(userAtom);
 
   if (user == null) {
     return <Navigate to="/login" replace={true} />;
