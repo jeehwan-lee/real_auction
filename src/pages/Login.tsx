@@ -34,11 +34,6 @@ function Login() {
     try {
       const response = await login(loginInfo);
 
-      if (response.statusCode === 404) {
-        alert("아이디와 비밀번호를 확인하세요");
-        return;
-      }
-
       localStorage.setItem("accessToken", response.token);
 
       setUser({
@@ -49,7 +44,7 @@ function Login() {
 
       navigate("/");
     } catch (error) {
-      alert("알 수 없는 에러가 발생했습니다");
+      alert("아이디와 비밀번호를 확인하세요");
     }
   };
 
