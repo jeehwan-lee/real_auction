@@ -10,7 +10,7 @@ const authAPI = (url: string, options?: any) => {
   return axios.create({
     baseURL: url,
     headers: {
-      Authorization: `bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
     ...options,
   });

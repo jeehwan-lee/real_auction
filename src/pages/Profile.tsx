@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../components/shared/Input";
 import Spacing from "../components/shared/Spacing";
 import Button from "../components/shared/Button";
@@ -10,13 +10,15 @@ import { useRecoilState } from "recoil";
 import { userAtom } from "../store/atom/user";
 import { ProfileInfo } from "../models/profile";
 import ProfileImageUload from "../components/profile/ProfileImageUload";
+import { checkUserNameExist } from "../apis/signUp";
+import { updateProfile } from "../apis/profile";
 
 function Profile() {
-  const [user] = useRecoilState(userAtom);
+  const [user, setUser] = useRecoilState(userAtom);
 
   const expPassword =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-  const expName = /^[A-Za-z]{4,8}$/;
+  const expName = /^[a-zA-Z0-9가-힣]{4,8}$/;
 
   const [profileInfo, setProfileInfo] = useState<ProfileInfo>({
     email: user?.email || "",
@@ -27,6 +29,13 @@ function Profile() {
   });
 
   const [errorMessage, setErrorMessage] = useState<string>("");
+
+  const [existNameCheck, setExistNameCheck] =
+    useState<string>("닉네임 중복확인을 해주세요");
+
+  useEffect(() => {
+    setExistNameCheck("닉네임 중복확인을 해주세요");
+  }, [profileInfo.name]);
 
   const isValidProfileInfo = () => {
     if (expPassword.test(profileInfo.password) === false) {
@@ -48,7 +57,20 @@ function Profile() {
     setProfileInfo({ ...profileInfo, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = () => {
+  const nameCheck = async () => {
+    const result = await checkUserNameExist(profileInfo.name);
+
+    if (result) {
+      // 중복된 이메일이 있는 경우
+      alert("이미 존재하는 닉네임입니다.");
+      setProfileInfo({ ...profileInfo, name: "" });
+    } else {
+      alert("사용 가능한 닉네임입니다");
+      setExistNameCheck("");
+    }
+  };
+
+  const onSubmit = async () => {
     if (isValidProfileInfo() !== "") {
       setErrorMessage(isValidProfileInfo());
       return;
@@ -56,7 +78,20 @@ function Profile() {
 
     setErrorMessage("");
 
-    console.log(profileInfo);
+    if (existNameCheck !== "") {
+      alert(existNameCheck);
+      return;
+    }
+
+    const response = await updateProfile(profileInfo);
+
+    if (!response) {
+      alert("프로필 수정에서 에러가 발생했습니다.");
+      return;
+    }
+
+    alert("로그아웃 됩니다.");
+    setUser(null);
   };
 
   return (
@@ -78,7 +113,7 @@ function Profile() {
           onChange={onChange}
         />
         <div className="w-[96px] absolute top-0 right-0">
-          <Button label="중복확인" />
+          <Button label="중복확인" onClick={() => nameCheck()} />
         </div>
       </Flex>
       <div className="h-[24px]"></div>
