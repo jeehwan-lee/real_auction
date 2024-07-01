@@ -34,19 +34,22 @@ function Login() {
     try {
       const response = await login(loginInfo);
 
-      if (response) {
-        localStorage.setItem("accessToken", response.token);
-
-        setUser({
-          email: response.email,
-          name: response.name,
-          photoUrl: response.photoUrl,
-        });
+      if (response.statusCode === 404) {
+        alert("아이디와 비밀번호를 확인하세요");
+        return;
       }
+
+      localStorage.setItem("accessToken", response.token);
+
+      setUser({
+        email: response.email,
+        name: response.name,
+        photoUrl: response.photoUrl,
+      });
 
       navigate("/");
     } catch (error) {
-      alert("아이디와 비밀번호를 확인하세요");
+      alert("알 수 없는 에러가 발생했습니다");
     }
   };
 

@@ -117,7 +117,7 @@ function Profile() {
         </div>
       </Flex>
       <div className="h-[24px]"></div>
-      <Text label="비밀번호" color="black" size="lg" />
+      <Text label="비밀번호 수정" color="black" size="lg" />
       <div className="h-[10px]"></div>
       <Input
         placeholder="비밀번호 (문자, 숫자, 특수문자 포함 8~20자리)"
