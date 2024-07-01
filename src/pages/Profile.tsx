@@ -63,7 +63,7 @@ function Profile() {
     <div className="my-auto">
       <div className="h-[10px]"></div>
       <Flex direction="flex-col">
-        <ProfileImageUload imageUrl="https://firebasestorage.googleapis.com/v0/b/lovetrip-83cb0.appspot.com/o/image%2Fprofile%2F1718116694908?alt=media&token=cbe35da1-7452-4f15-987c-fd3c830c2253" />
+        <ProfileImageUload imageUrl={user?.photoUrl as string} />
         <div className="h-[10px]"></div>
         <Text label={profileInfo.email} color="black" size="lg" />
       </Flex>
