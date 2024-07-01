@@ -3,15 +3,18 @@ import Input from "../components/shared/Input";
 import Spacing from "../components/shared/Spacing";
 import Button from "../components/shared/Button";
 import Flex from "../components/shared/Flex";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Text from "../components/shared/Text";
 import { SignUpInfo } from "../models/signUp";
+import { signUp } from "../apis/signUp";
 
 function SignIn() {
+  const navigate = useNavigate();
+
   const expEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
   const expPassword =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-  const expName = /^[A-Za-z]{4,8}$/;
+  const expName = /^[a-zA-Z0-9가-힣]{4,8}$/;
 
   const [signUpInfo, setSignUpInfo] = useState<SignUpInfo>({
     email: "",
@@ -46,7 +49,7 @@ function SignIn() {
     setSignUpInfo({ ...signUpInfo, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (isValidSignUpInfo() !== "") {
       setErrorMessage(isValidSignUpInfo());
       return;
@@ -54,7 +57,14 @@ function SignIn() {
 
     setErrorMessage("");
 
-    console.log(signUpInfo);
+    const response = await signUp(signUpInfo);
+
+    if (!response) {
+      alert("회원가입 중 에러가 발생했습니다.");
+      return;
+    }
+
+    navigate("/login");
   };
 
   return (

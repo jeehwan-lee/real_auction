@@ -75,7 +75,7 @@ function Login() {
       <div className="h-[10px]"></div>
       <Flex direction="flex-row">
         <Text label="아직 계정이 없으신가요?" color="gray-400" size="base" />
-        <Link to="/signIn">
+        <Link to="/signUp">
           <Text label="회원가입" color="gray-600" size="base" />
         </Link>
       </Flex>
