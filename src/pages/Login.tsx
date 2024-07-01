@@ -33,7 +33,6 @@ function Login() {
   const onSubmit = async () => {
     try {
       const response = await login(loginInfo);
-
       localStorage.setItem("accessToken", response.token);
 
       setUser({

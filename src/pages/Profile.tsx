@@ -12,13 +12,10 @@ import { ProfileInfo } from "../models/profile";
 import ProfileImageUload from "../components/profile/ProfileImageUload";
 import { checkUserNameExist } from "../apis/signUp";
 import { updateProfile } from "../apis/profile";
+import { expName, expPassword } from "../constants/regexp";
 
 function Profile() {
   const [user, setUser] = useRecoilState(userAtom);
-
-  const expPassword =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-  const expName = /^[a-zA-Z0-9가-힣]{4,8}$/;
 
   const [profileInfo, setProfileInfo] = useState<ProfileInfo>({
     email: user?.email || "",
@@ -127,7 +124,7 @@ function Profile() {
         onChange={onChange}
       />
       <div className="h-[24px]"></div>
-      <Text label="비밀번호 확인" color="black" size="lg" />
+      <Text label="비밀번호 재입력" color="black" size="lg" />
       <div className="h-[10px]"></div>
       <Input
         placeholder="비밀번호를 재입력하세요"

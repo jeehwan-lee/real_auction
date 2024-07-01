@@ -11,18 +11,15 @@ import {
   checkUserNameExist,
   signUp,
 } from "../apis/signUp";
+import { expEmail, expName, expPassword } from "../constants/regexp";
 
 interface existCheckProps {
   email: string;
   name: string;
 }
+
 function SignIn() {
   const navigate = useNavigate();
-
-  const expEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-  const expPassword =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-  const expName = /^[a-zA-Z0-9가-힣]{4,8}$/;
 
   const [signUpInfo, setSignUpInfo] = useState<SignUpInfo>({
     email: "",
