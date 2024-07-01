@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../components/shared/Input";
 import Spacing from "../components/shared/Spacing";
 import Button from "../components/shared/Button";
@@ -6,8 +6,16 @@ import Flex from "../components/shared/Flex";
 import { Link, useNavigate } from "react-router-dom";
 import Text from "../components/shared/Text";
 import { SignUpInfo } from "../models/signUp";
-import { signUp } from "../apis/signUp";
+import {
+  checkUserEmailExist,
+  checkUserNameExist,
+  signUp,
+} from "../apis/signUp";
 
+interface existCheckProps {
+  email: string;
+  name: string;
+}
 function SignIn() {
   const navigate = useNavigate();
 
@@ -24,6 +32,19 @@ function SignIn() {
   });
 
   const [errorMessage, setErrorMessage] = useState<string>("");
+
+  const [existCheck, setExistCheck] = useState<existCheckProps>({
+    email: "이메일 중복확인을 해주세요",
+    name: "닉네임 중복확인을 해주세요",
+  });
+
+  useEffect(() => {
+    setExistCheck({ ...existCheck, email: "이메일 중복확인을 해주세요" });
+  }, [signUpInfo.email]);
+
+  useEffect(() => {
+    setExistCheck({ ...existCheck, name: "닉네임 중복확인을 해주세요" });
+  }, [signUpInfo.name]);
 
   const isValidSignUpInfo = () => {
     if (expEmail.test(signUpInfo.email) === false) {
@@ -49,6 +70,32 @@ function SignIn() {
     setSignUpInfo({ ...signUpInfo, [e.target.name]: e.target.value });
   };
 
+  const emailCheck = async () => {
+    const result = await checkUserEmailExist(signUpInfo.email);
+
+    if (result) {
+      // 중복된 이메일이 있는 경우
+      alert("이미 존재하는 이메일입니다.");
+      setSignUpInfo({ ...signUpInfo, email: "" });
+    } else {
+      alert("사용 가능한 이메일입니다");
+      setExistCheck({ ...existCheck, email: "" });
+    }
+  };
+
+  const nameCheck = async () => {
+    const result = await checkUserNameExist(signUpInfo.name);
+
+    if (result) {
+      // 중복된 이메일이 있는 경우
+      alert("이미 존재하는 닉네임입니다.");
+      setSignUpInfo({ ...signUpInfo, name: "" });
+    } else {
+      alert("사용 가능한 닉네임입니다");
+      setExistCheck({ ...existCheck, name: "" });
+    }
+  };
+
   const onSubmit = async () => {
     if (isValidSignUpInfo() !== "") {
       setErrorMessage(isValidSignUpInfo());
@@ -56,6 +103,16 @@ function SignIn() {
     }
 
     setErrorMessage("");
+
+    if (existCheck.email !== "") {
+      alert(existCheck.email);
+      return;
+    }
+
+    if (existCheck.name !== "") {
+      alert(existCheck.name);
+      return;
+    }
 
     const response = await signUp(signUpInfo);
 
@@ -81,7 +138,7 @@ function SignIn() {
           onChange={onChange}
         />
         <div className="w-[96px] absolute top-0 right-0">
-          <Button label="중복확인" />
+          <Button label="중복확인" onClick={() => emailCheck()} />
         </div>
       </Flex>
       <div className="h-[24px]"></div>
@@ -115,7 +172,7 @@ function SignIn() {
           onChange={onChange}
         />
         <div className="w-[96px] absolute top-0 right-0">
-          <Button label="중복확인" />
+          <Button label="중복확인" onClick={() => nameCheck()} />
         </div>
       </Flex>
       <div className="h-[24px]"></div>
