@@ -40,7 +40,7 @@ const ProfileImageUpload = forwardRef((props: { imageUrl: string }, ref) => {
       params: {
         ACL: "public-read",
         Bucket: process.env.REACT_APP_AWS_NAME,
-        Key: `upload/${name}`,
+        Key: `image/profile/${name}`,
         Body: imageFile,
       },
     });

@@ -5,6 +5,7 @@ import { CiBellOn } from "react-icons/ci";
 import { VscAccount } from "react-icons/vsc";
 import { RxHome } from "react-icons/rx";
 import { Link, useLocation } from "react-router-dom";
+import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 
 function BottomTab() {
   const location = useLocation().pathname;
@@ -19,8 +20,8 @@ function BottomTab() {
         />
       </Link>
       <Link to="/search">
-        <IoIosSearch
-          className={`text-4xl  ${
+        <IoChatbubbleEllipsesOutline
+          className={`text-3xl  ${
             location === "/search" ? "text-gray-800" : "text-gray-400"
           }  hover:text-gray-800 cursor-pointer`}
         />

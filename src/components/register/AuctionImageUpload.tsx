@@ -6,7 +6,7 @@ import React, {
 } from "react";
 import AWS from "aws-sdk";
 
-const AuctionImageUpload = forwardRef((props: { imageUrl: string }, ref) => {
+const AuctionImageUpload = forwardRef((props, ref) => {
   const inputElement = useRef<HTMLInputElement>(null);
 
   const [imageFile, setImageFile] = useState<File>();
@@ -40,7 +40,7 @@ const AuctionImageUpload = forwardRef((props: { imageUrl: string }, ref) => {
       params: {
         ACL: "public-read",
         Bucket: process.env.REACT_APP_AWS_NAME,
-        Key: `upload/${name}`,
+        Key: `image/auction/${name}`,
         Body: imageFile,
       },
     });
@@ -65,8 +65,12 @@ const AuctionImageUpload = forwardRef((props: { imageUrl: string }, ref) => {
         className="hidden"
       />
       <img
-        className="rounded-full w-[160px] h-[160px] hover:cursor-pointer"
-        src={imageFile ? URL.createObjectURL(imageFile) : props.imageUrl}
+        className="rounded-lg w-full h-[220px] object-cover hover:cursor-pointer"
+        src={
+          imageFile
+            ? URL.createObjectURL(imageFile)
+            : "https://real-auction.s3.ap-southeast-2.amazonaws.com/upload/1719932369672"
+        }
         onClick={fileHandler}
       />
     </>
