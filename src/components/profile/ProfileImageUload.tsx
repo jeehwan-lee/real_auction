@@ -1,11 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, {
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import AWS from "aws-sdk";
 
-interface ProfileImageUloadProps {
-  imageUrl: string;
-}
-
-function ProfileImageUload({ imageUrl }: ProfileImageUloadProps) {
+const ProfileImageUload = forwardRef((props: { imageUrl: string }, ref) => {
   const inputElement = useRef<HTMLInputElement>(null);
 
   const [imageFile, setImageFile] = useState<File>();
@@ -46,8 +47,12 @@ function ProfileImageUload({ imageUrl }: ProfileImageUloadProps) {
 
     const IMAGE_URL = await upload.promise().then((res) => res.Location);
 
-    console.log(IMAGE_URL);
+    return IMAGE_URL;
   };
+
+  useImperativeHandle(ref, () => ({
+    uploadImageFile,
+  }));
 
   return (
     <>
@@ -61,12 +66,11 @@ function ProfileImageUload({ imageUrl }: ProfileImageUloadProps) {
       />
       <img
         className="rounded-full w-[160px] h-[160px] hover:cursor-pointer"
-        src={imageFile ? URL.createObjectURL(imageFile) : imageUrl}
+        src={imageFile ? URL.createObjectURL(imageFile) : props.imageUrl}
         onClick={fileHandler}
       />
-      <button onClick={uploadImageFile}>전송</button>
     </>
   );
-}
+});
 
 export default ProfileImageUload;

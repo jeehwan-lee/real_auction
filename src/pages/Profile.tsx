@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Input from "../components/shared/Input";
 import Spacing from "../components/shared/Spacing";
 import Button from "../components/shared/Button";
@@ -15,6 +15,8 @@ import { updateProfile } from "../apis/profile";
 import { expName, expPassword } from "../constants/regexp";
 
 function Profile() {
+  const profileImageUloadRef = useRef<any>(null);
+
   const [user, setUser] = useRecoilState(userAtom);
 
   const [profileInfo, setProfileInfo] = useState<ProfileInfo>({
@@ -80,14 +82,20 @@ function Profile() {
       return;
     }
 
-    const response = await updateProfile(profileInfo);
+    const uploadedProfileFile =
+      await profileImageUloadRef?.current?.uploadImageFile();
+
+    const response = await updateProfile({
+      ...profileInfo,
+      photoUrl: uploadedProfileFile,
+    });
 
     if (!response) {
       alert("프로필 수정에서 에러가 발생했습니다.");
       return;
     }
 
-    alert("로그아웃 됩니다.");
+    alert("수정되었습니다. 다시 로그인해주세요.");
     setUser(null);
   };
 
@@ -95,7 +103,10 @@ function Profile() {
     <div className="my-auto">
       <div className="h-[10px]"></div>
       <Flex direction="flex-col">
-        <ProfileImageUload imageUrl={user?.photoUrl as string} />
+        <ProfileImageUload
+          imageUrl={user?.photoUrl as string}
+          ref={profileImageUloadRef}
+        />
         <div className="h-[10px]"></div>
         <Text label={profileInfo.email} color="black" size="lg" />
       </Flex>
