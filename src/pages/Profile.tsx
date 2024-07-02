@@ -9,13 +9,13 @@ import { SignUpInfo } from "../models/signUp";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../store/atom/user";
 import { ProfileInfo } from "../models/profile";
-import ProfileImageUload from "../components/profile/ProfileImageUload";
 import { checkUserNameExist } from "../apis/signUp";
 import { updateProfile } from "../apis/profile";
 import { expName, expPassword } from "../constants/regexp";
+import ProfileImageUpload from "../components/profile/ProfileImageUpload";
 
 function Profile() {
-  const profileImageUloadRef = useRef<any>(null);
+  const profileImageUploadRef = useRef<any>(null);
 
   const [user, setUser] = useRecoilState(userAtom);
 
@@ -83,7 +83,7 @@ function Profile() {
     }
 
     const uploadedProfileFile =
-      await profileImageUloadRef?.current?.uploadImageFile();
+      await profileImageUploadRef?.current?.uploadImageFile();
 
     const response = await updateProfile({
       ...profileInfo,
@@ -103,9 +103,9 @@ function Profile() {
     <div className="my-auto">
       <div className="h-[10px]"></div>
       <Flex direction="flex-col">
-        <ProfileImageUload
+        <ProfileImageUpload
           imageUrl={user?.photoUrl as string}
-          ref={profileImageUloadRef}
+          ref={profileImageUploadRef}
         />
         <div className="h-[10px]"></div>
         <Text label={profileInfo.email} color="black" size="lg" />

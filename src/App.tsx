@@ -22,14 +22,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<SearchList />} />
-            <Route
-              path="/register"
-              element={
-                <PrivateRoute>
-                  <Register />
-                </PrivateRoute>
-              }
-            />
+            <Route path="/register" element={<Register />} />
             <Route
               path="/notice"
               element={

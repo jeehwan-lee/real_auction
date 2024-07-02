@@ -6,7 +6,7 @@ import React, {
 } from "react";
 import AWS from "aws-sdk";
 
-const ProfileImageUload = forwardRef((props: { imageUrl: string }, ref) => {
+const ProfileImageUpload = forwardRef((props: { imageUrl: string }, ref) => {
   const inputElement = useRef<HTMLInputElement>(null);
 
   const [imageFile, setImageFile] = useState<File>();
@@ -73,4 +73,4 @@ const ProfileImageUload = forwardRef((props: { imageUrl: string }, ref) => {
   );
 });
 
-export default ProfileImageUload;
+export default ProfileImageUpload;
