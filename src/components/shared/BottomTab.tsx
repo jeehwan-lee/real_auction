@@ -19,10 +19,10 @@ function BottomTab() {
           }  hover:text-gray-800 cursor-pointer`}
         />
       </Link>
-      <Link to="/search">
+      <Link to="/myAuction">
         <IoChatbubbleEllipsesOutline
           className={`text-3xl  ${
-            location === "/search" ? "text-gray-800" : "text-gray-400"
+            location === "/myAuction" ? "text-gray-800" : "text-gray-400"
           }  hover:text-gray-800 cursor-pointer`}
         />
       </Link>

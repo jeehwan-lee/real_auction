@@ -21,7 +21,7 @@ function App() {
           <div className="mt-[70px]"></div>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/search" element={<SearchList />} />
+            <Route path="/myAuction" element={<SearchList />} />
             <Route path="/register" element={<Register />} />
             <Route
               path="/notice"
