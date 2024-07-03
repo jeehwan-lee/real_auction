@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import Spacing from "./components/shared/Spacing";
+import MyAuction from "./pages/MyAuction";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
           <div className="mt-[70px]"></div>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/myAuction" element={<SearchList />} />
+            <Route path="/myAuction" element={<MyAuction />} />
             <Route path="/register" element={<Register />} />
             <Route
               path="/notice"
