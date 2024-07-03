@@ -33,7 +33,7 @@ function Register() {
           type="datetime-local"
           id="datetime"
           value="2024-07-03T21:00"
-          className="w-full h-10 py-2 px-4 rounded-lg"
+          className="w-full h-10 py-2 px-4 rounded-lg text-gray-400"
         ></input>
       </Flex>
       <div className="h-[16px]"></div>
