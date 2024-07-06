@@ -10,6 +10,7 @@ import { createAuction } from "../apis/auction";
 import { useNavigate } from "react-router";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../store/atom/user";
+import { expNumber } from "../constants/regexp";
 
 function Register() {
   const navigate = useNavigate();
@@ -26,14 +27,40 @@ function Register() {
     userId: user?.id || 0,
   });
 
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
+  const isValidAuctionInfo = () => {
+    if (auctionInfo.name.length === 0) {
+      return "제목을 입력해주세요.";
+    }
+
+    if (expNumber.test(auctionInfo.startPrice) === false) {
+      return "시작가격을 확인해주세요";
+    }
+
+    if (auctionInfo.endDate.length === 0) {
+      return "마감일시를 입력해주세요.";
+    }
+
+    if (auctionInfo.description.length === 0) {
+      return "상세내용을 입력해주세요.";
+    }
+
+    return "";
+  };
+
   const onChange = (e: { target: { name: any; value: any } }) => {
     setAuctionInfo({ ...auctionInfo, [e.target.name]: e.target.value });
   };
 
   const onSubmit = async () => {
-    console.log(auctionInfo);
     const uploadedProfileFile =
       await profileImageUploadRef?.current?.uploadImageFile();
+
+    if (isValidAuctionInfo() !== "") {
+      setErrorMessage(isValidAuctionInfo());
+      return;
+    }
 
     const response = await createAuction({
       ...auctionInfo,
@@ -87,7 +114,7 @@ function Register() {
       </Flex>
       <div className="h-[16px]"></div>
       <Flex direction="flex-col" className="w-full">
-        <Text label="상세설명" color="black" size="lg" />
+        <Text label="상세내용" color="black" size="lg" />
         <div className="h-[6px]"></div>
         <TextArea
           placeholder="상세내용을 작성해주세요"
@@ -97,6 +124,14 @@ function Register() {
         />
       </Flex>
       <div className="h-[16px]"></div>
+      {errorMessage !== "" ? (
+        <>
+          <Text label={errorMessage} color="red-400" size="sm" />
+          <div className="h-[10px]"></div>
+        </>
+      ) : (
+        ""
+      )}
       <Button label="개설하기" onClick={() => onSubmit()} />
     </Flex>
   );
