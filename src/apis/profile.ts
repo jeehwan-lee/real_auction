@@ -1,4 +1,3 @@
-import { LoginInfo } from "../models/login";
 import { ProfileInfo } from "../models/profile";
 import { autnInstance } from "../utils/instance";
 

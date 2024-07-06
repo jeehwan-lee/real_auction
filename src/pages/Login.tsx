@@ -36,6 +36,7 @@ function Login() {
       localStorage.setItem("accessToken", response.token);
 
       setUser({
+        id: response.id,
         email: response.email,
         name: response.name,
         photoUrl: response.photoUrl,
