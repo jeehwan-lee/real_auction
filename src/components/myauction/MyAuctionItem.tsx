@@ -20,7 +20,7 @@ function MyAuctionItem({ myAuction }: MyAuctionItemProps) {
   return (
     <Flex
       direction="flex-row"
-      classNameProps="bg-white rounded-lg pt-4 pb-4 px-4 hover:cursor-pointer my-4"
+      classNameProps="bg-white rounded-lg pt-4 pb-4 px-4 hover:cursor-pointer my-2"
     >
       <Flex
         direction="flex-row"
