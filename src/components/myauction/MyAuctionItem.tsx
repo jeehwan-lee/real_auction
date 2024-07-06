@@ -19,11 +19,18 @@ function MyAuctionItem({ myAuction }: MyAuctionItemProps) {
 
   return (
     <Flex
-      direction="flex-col"
+      direction="flex-row"
       classNameProps="bg-white rounded-lg pt-4 pb-4 px-4 hover:cursor-pointer my-4"
     >
-      <Flex direction="flex-row" justify="justify-start">
-        <img className="rounded-lg w-1/4 h-1/4 object-cover " src={photoUrl} />
+      <Flex
+        direction="flex-row"
+        justify="justify-start"
+        classNameProps="w-full"
+      >
+        <img
+          className="rounded-lg w-[90px] h-[90px] object-cover "
+          src={photoUrl}
+        />
         <div className="w-[14px]"></div>
         <Flex
           direction="flex-col"
