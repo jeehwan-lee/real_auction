@@ -5,6 +5,8 @@ import React, {
   useState,
 } from "react";
 import AWS from "aws-sdk";
+import { FaRegImages } from "react-icons/fa";
+import Flex from "../shared/Flex";
 
 const AuctionImageUpload = forwardRef((props, ref) => {
   const inputElement = useRef<HTMLInputElement>(null);
@@ -64,15 +66,22 @@ const AuctionImageUpload = forwardRef((props, ref) => {
         onChange={handleFileChange}
         className="hidden"
       />
-      <img
-        className="rounded-lg w-full h-[220px] object-cover hover:cursor-pointer"
-        src={
-          imageFile
-            ? URL.createObjectURL(imageFile)
-            : "https://real-auction.s3.ap-southeast-2.amazonaws.com/upload/1719932369672"
-        }
-        onClick={fileHandler}
-      />
+      {imageFile ? (
+        <img
+          className="rounded-lg w-full h-[220px] object-cover hover:cursor-pointer"
+          src={URL.createObjectURL(imageFile)}
+          onClick={fileHandler}
+        />
+      ) : (
+        <Flex
+          direction="flex-col"
+          justify="justify-center"
+          classNameProps="rounded-lg bg-white w-full h-[220px] hover:cursor-pointer"
+          onClick={fileHandler}
+        >
+          <FaRegImages size={90} />
+        </Flex>
+      )}
     </>
   );
 });
