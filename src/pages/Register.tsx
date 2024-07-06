@@ -11,6 +11,7 @@ import { useNavigate } from "react-router";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../store/atom/user";
 import { expNumber } from "../constants/regexp";
+import dayjs from "dayjs";
 
 function Register() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ function Register() {
     name: "",
     description: "",
     startPrice: "0",
-    endDate: "2024-08-01T14:00:00",
+    endDate: dayjs().format("YYYY-MM-DDTHH:mm"),
     photoUrl: "",
     userId: user?.id || 0,
   });
