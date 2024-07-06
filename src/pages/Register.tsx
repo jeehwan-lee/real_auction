@@ -43,6 +43,10 @@ function Register() {
       return "마감일시를 입력해주세요.";
     }
 
+    if (dayjs(auctionInfo.endDate).diff(dayjs(), "days") < 1) {
+      return "마감일자는 오늘 이후부터 가능합니다";
+    }
+
     if (auctionInfo.description.length === 0) {
       return "상세내용을 입력해주세요.";
     }
@@ -51,6 +55,14 @@ function Register() {
   };
 
   const onChange = (e: { target: { name: any; value: any } }) => {
+    setAuctionInfo({ ...auctionInfo, [e.target.name]: e.target.value });
+  };
+
+  const onChangeEndDate = (e: { target: { name: any; value: any } }) => {
+    if (dayjs(e.target.value).diff(dayjs(), "days") < 1) {
+      alert("마감일자는 오늘 이후부터 가능합니다");
+      return;
+    }
     setAuctionInfo({ ...auctionInfo, [e.target.name]: e.target.value });
   };
 
@@ -109,7 +121,7 @@ function Register() {
           type="datetime-local"
           name="endDate"
           value={auctionInfo.endDate}
-          onChange={onChange}
+          onChange={onChangeEndDate}
           className="w-full h-10 py-2 px-4 rounded-lg text-gray-400"
         ></input>
       </Flex>
