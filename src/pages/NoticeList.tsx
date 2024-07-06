@@ -8,6 +8,7 @@ import { MyNoticeInfo } from "../models/notice";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../store/atom/user";
 import { getMyNoticeList } from "../apis/notice";
+import { Link } from "react-router-dom";
 
 function NoticeList() {
   const [user] = useRecoilState(userAtom);
@@ -24,7 +25,9 @@ function NoticeList() {
   return (
     <>
       {myNoticeList.map((notice) => (
-        <NoticeItem notice={notice} />
+        <Link to={`/auction/${notice.auction.id}`}>
+          <NoticeItem notice={notice} />
+        </Link>
       ))}
     </>
   );

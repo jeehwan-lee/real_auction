@@ -1,4 +1,4 @@
-import { MyAuctionInfo } from "./auction";
+import { AuctionInfo } from "./auction";
 import { User } from "./user";
 
 export interface MyNoticeInfo {
@@ -9,5 +9,5 @@ export interface MyNoticeInfo {
   auctionId: number;
   userId: number;
   user: User;
-  auction: MyAuctionInfo;
+  auction: AuctionInfo;
 }

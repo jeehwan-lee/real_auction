@@ -8,7 +8,7 @@ export interface CreateAuctionInfo {
   userId: number;
 }
 
-export interface MyAuctionInfo {
+export interface AuctionInfo {
   endDate: string;
   createdDt: string;
   id: number;

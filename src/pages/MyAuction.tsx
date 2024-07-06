@@ -4,13 +4,13 @@ import MyAuctionItem from "../components/myauction/MyAuctionItem";
 import { getMyAuctionList } from "../apis/auction";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../store/atom/user";
-import { MyAuctionInfo } from "../models/auction";
+import { AuctionInfo } from "../models/auction";
 import { Link } from "react-router-dom";
 
 function MyAuction() {
   const [user] = useRecoilState(userAtom);
 
-  const [myAuctionList, setMyAuctionList] = useState<MyAuctionInfo[]>([]);
+  const [myAuctionList, setMyAuctionList] = useState<AuctionInfo[]>([]);
 
   useEffect(() => {
     if (!user) {

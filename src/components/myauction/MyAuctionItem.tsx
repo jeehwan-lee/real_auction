@@ -3,7 +3,7 @@ import { MdPeopleAlt } from "react-icons/md";
 import { FaChevronRight } from "react-icons/fa6";
 import Flex from "../shared/Flex";
 import Text from "../shared/Text";
-import { MyAuctionInfo } from "../../models/auction";
+import { AuctionInfo } from "../../models/auction";
 import dayjs from "dayjs";
 import {
   auctionItemDateFormatter,
@@ -11,7 +11,7 @@ import {
 } from "../../utils/formatter";
 
 interface MyAuctionItemProps {
-  myAuction: MyAuctionInfo;
+  myAuction: AuctionInfo;
 }
 
 function MyAuctionItem({ myAuction }: MyAuctionItemProps) {

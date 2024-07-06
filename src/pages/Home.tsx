@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Flex from "../components/shared/Flex";
 import SearchInput from "../components/shared/SearchInput";
 import { FaBars } from "react-icons/fa";
@@ -8,11 +8,10 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { categoryList } from "../constants/category";
+import { getAuctionList } from "../apis/auction";
+import { AuctionInfo } from "../models/auction";
 
 function Home() {
-  const [selectedCategory, setSelectedCategory] = useState("전체");
-  const [auctionList, setAuctionList] = useState(["1", "2", "3", "4"]);
-
   const settings = {
     dots: false,
     infinite: false,
@@ -21,6 +20,13 @@ function Home() {
     slidesToScroll: 4,
     arrows: false,
   };
+
+  const [selectedCategory, setSelectedCategory] = useState("전체");
+  const [auctionList, setAuctionList] = useState<AuctionInfo[]>([]);
+
+  useEffect(() => {
+    getAuctionList().then((data) => setAuctionList(data));
+  }, []);
 
   return (
     <div>
@@ -49,8 +55,8 @@ function Home() {
           classNameProps="w-full"
           align="align-top"
         >
-          {auctionList.map(() => (
-            <AuctionItem />
+          {auctionList.map((auction) => (
+            <AuctionItem auction={auction} />
           ))}
         </Flex>
       </Flex>

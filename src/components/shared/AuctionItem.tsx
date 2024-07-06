@@ -3,11 +3,19 @@ import { MdPeopleAlt } from "react-icons/md";
 import { FaChevronRight } from "react-icons/fa6";
 import Flex from "../shared/Flex";
 import Text from "../shared/Text";
-import { MyAuctionInfo } from "../../models/auction";
-import CategoryItem from "./CategoryItem";
 import Tag from "./Tag";
+import { AuctionInfo } from "../../models/auction";
+import {
+  auctionItemDateFormatter,
+  priceFormatter,
+} from "../../utils/formatter";
 
-function AuctionItem() {
+interface AuctionItemProps {
+  auction: AuctionInfo;
+}
+
+function AuctionItem({ auction }: AuctionItemProps) {
+  const { name, category, startPrice, photoUrl, endDate, id } = auction;
   return (
     <Flex
       direction="flex-col"
@@ -18,7 +26,7 @@ function AuctionItem() {
         justify="justify-start"
         classNameProps="w-full mb-2 pl-1"
       >
-        <Tag label="의류" />
+        <Tag label={category} />
       </Flex>
       <Flex
         direction="flex-row"
@@ -27,7 +35,7 @@ function AuctionItem() {
       >
         <img
           className="rounded-lg w-[90px] h-[90px] object-cover "
-          src="https://real-auction.s3.ap-southeast-2.amazonaws.com/upload/1719932369672"
+          src={photoUrl}
         />
         <div className="w-[20px]"></div>
         <Flex
@@ -36,13 +44,17 @@ function AuctionItem() {
           align="items-start"
           classNameProps="w-full"
         >
-          <Text label="BMW 자동차" color="black" size="base"></Text>
+          <Text label={name} color="black" size="base"></Text>
           <div className="h-[2px]"></div>
-          <Text label="시작가 3,000,000원" color="gray-400" size="sm"></Text>
+          <Text
+            label={`시작가 ${priceFormatter(startPrice)}원`}
+            color="gray-400"
+            size="sm"
+          ></Text>
           <div className="h-[2px]"></div>
           <Flex direction="flex-row" classNameProps="w-full">
             <Text
-              label="7.24.(수) 17:30 마감"
+              label={`${auctionItemDateFormatter(endDate)} 마감`}
               color="gray-400"
               size="sm"
             ></Text>
