@@ -5,4 +5,4 @@ export const expPassword =
 
 export const expName = /^[a-zA-Z0-9가-힣]{4,8}$/;
 
-export const expNumber = /^[0-9]*$/;
+export const expNumber = /^[1-9]\d*$/;

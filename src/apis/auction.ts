@@ -12,3 +12,12 @@ export const createAuction = async (createAuctionInfo: CreateAuctionInfo) => {
     console.log(e);
   }
 };
+
+export const getMyAuctionList = async (userId: number) => {
+  try {
+    const { data } = await defaultInstance.get(`/auction/list/${userId}`);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
