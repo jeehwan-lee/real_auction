@@ -2,13 +2,19 @@ import React from "react";
 import Flex from "../shared/Flex";
 import Text from "../shared/Text";
 import { MyNoticeInfo } from "../../models/notice";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/ko";
 
 interface NoticeItemProps {
   notice: MyNoticeInfo;
 }
 
 function NoticeItem({ notice }: NoticeItemProps) {
-  const { name, description, user, auction } = notice;
+  dayjs.extend(relativeTime);
+  dayjs.locale("ko");
+
+  const { name, description, user, auction, createdDt } = notice;
 
   return (
     <Flex
@@ -40,7 +46,11 @@ function NoticeItem({ notice }: NoticeItemProps) {
             <div className="h-[2px]"></div>
             <Text label={description} color="black" size="sm"></Text>
             <div className="h-[2px]"></div>
-            <Text label="1시간 전" color="gray-400" size="sm"></Text>
+            <Text
+              label={dayjs(createdDt).fromNow()}
+              color="gray-400"
+              size="sm"
+            ></Text>
             <div className="h-[2px]"></div>
           </Flex>
           <img
