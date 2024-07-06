@@ -4,19 +4,31 @@ import { FaChevronRight } from "react-icons/fa6";
 import Flex from "../shared/Flex";
 import Text from "../shared/Text";
 import { MyAuctionInfo } from "../../models/auction";
+import CategoryItem from "./CategoryItem";
 
 function AuctionItem() {
   return (
     <Flex
       direction="flex-col"
-      classNameProps="bg-white rounded-lg pt-4 pb-2 px-4 hover:cursor-pointer my-4"
+      classNameProps="bg-white rounded-lg pt-4 pb-2 px-4 hover:cursor-pointer mb-2"
     >
-      <Flex direction="flex-row" justify="justify-start">
+      <Flex
+        direction="flex-row"
+        justify="justify-start"
+        classNameProps="w-full mb-2 pl-2"
+      >
+        <Text label="의류" color="gray-400" size="sm" />
+      </Flex>
+      <Flex
+        direction="flex-row"
+        justify="justify-start"
+        classNameProps="w-full"
+      >
         <img
-          className="rounded-lg w-1/4 h-1/4 object-cover "
+          className="rounded-lg w-[90px] h-[90px] object-cover "
           src="https://real-auction.s3.ap-southeast-2.amazonaws.com/upload/1719932369672"
         />
-        <div className="w-[14px]"></div>
+        <div className="w-[20px]"></div>
         <Flex
           direction="flex-col"
           justify="justify-start"
