@@ -31,7 +31,7 @@ function MyAuctionItem({ myAuction }: MyAuctionItemProps) {
           className="rounded-lg w-[90px] h-[90px] object-cover "
           src={photoUrl}
         />
-        <div className="w-[14px]"></div>
+        <div className="w-[20px]"></div>
         <Flex
           direction="flex-col"
           justify="justify-start"
