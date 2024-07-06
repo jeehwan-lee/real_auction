@@ -12,7 +12,7 @@ function CategoryItem({ label, children }: CategoryItemProps) {
   return (
     <Flex
       direction="flex-row"
-      justify="justify-between"
+      justify="justify-center"
       classNameProps="px-4 mr-2 bg-white h-[40px] rounded-lg"
     >
       {children && (
