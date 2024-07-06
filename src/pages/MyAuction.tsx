@@ -5,6 +5,7 @@ import { getMyAuctionList } from "../apis/auction";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../store/atom/user";
 import { MyAuctionInfo } from "../models/auction";
+import { Link } from "react-router-dom";
 
 function MyAuction() {
   const [user] = useRecoilState(userAtom);
@@ -21,7 +22,9 @@ function MyAuction() {
   return (
     <>
       {myAuctionList.map((myAuction) => (
-        <MyAuctionItem myAuction={myAuction} />
+        <Link to={`/auction/${myAuction.id}`}>
+          <MyAuctionItem myAuction={myAuction} />
+        </Link>
       ))}
     </>
   );

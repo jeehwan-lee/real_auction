@@ -12,6 +12,7 @@ import SignUp from "./pages/SignUp";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import Spacing from "./components/shared/Spacing";
 import MyAuction from "./pages/MyAuction";
+import Auction from "./pages/Auction";
 
 function App() {
   return (
@@ -37,6 +38,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <Profile />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/auction/:id"
+              element={
+                <PrivateRoute>
+                  <Auction />
                 </PrivateRoute>
               }
             />
