@@ -29,7 +29,7 @@ function MyAuction() {
               <Text label="BMW 자동차" color="black" size="base"></Text>
               <div className="h-[2px]"></div>
               <Text
-                label="시작가 : 3,000,000원"
+                label="시작가 3,000,000원"
                 color="gray-400"
                 size="sm"
               ></Text>
