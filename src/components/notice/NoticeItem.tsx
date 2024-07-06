@@ -5,6 +5,7 @@ import { MyNoticeInfo } from "../../models/notice";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
+import { Link } from "react-router-dom";
 
 interface NoticeItemProps {
   notice: MyNoticeInfo;
@@ -17,49 +18,51 @@ function NoticeItem({ notice }: NoticeItemProps) {
   const { name, description, user, auction, createdDt } = notice;
 
   return (
-    <Flex
-      direction="flex-row"
-      classNameProps="bg-white rounded-lg pt-4 pb-4 px-4 my-2"
-    >
+    <Link to={`/auction/${auction.id}`}>
       <Flex
         direction="flex-row"
-        justify="justify-start"
-        classNameProps="w-full"
+        classNameProps="bg-white rounded-lg pt-4 pb-4 px-4 my-2"
       >
-        <img
-          className="rounded-full w-[60px] h-[60px] object-cover "
-          src={user.photoUrl}
-        />
-        <div className="w-[20px]"></div>
         <Flex
           direction="flex-row"
-          justify="justify-between"
+          justify="justify-start"
           classNameProps="w-full"
         >
+          <img
+            className="rounded-full w-[60px] h-[60px] object-cover "
+            src={user.photoUrl}
+          />
+          <div className="w-[20px]"></div>
           <Flex
-            direction="flex-col"
-            justify="justify-start"
-            align="items-start"
+            direction="flex-row"
+            justify="justify-between"
             classNameProps="w-full"
           >
-            <Text label={name} color="black" size="sm" bold={true}></Text>
-            <div className="h-[2px]"></div>
-            <Text label={description} color="black" size="sm"></Text>
-            <div className="h-[2px]"></div>
-            <Text
-              label={dayjs(createdDt).fromNow()}
-              color="gray-400"
-              size="sm"
-            ></Text>
-            <div className="h-[2px]"></div>
+            <Flex
+              direction="flex-col"
+              justify="justify-start"
+              align="items-start"
+              classNameProps="w-full"
+            >
+              <Text label={name} color="black" size="sm" bold={true}></Text>
+              <div className="h-[2px]"></div>
+              <Text label={description} color="black" size="sm"></Text>
+              <div className="h-[2px]"></div>
+              <Text
+                label={dayjs(createdDt).fromNow()}
+                color="gray-400"
+                size="sm"
+              ></Text>
+              <div className="h-[2px]"></div>
+            </Flex>
+            <img
+              className="rounded-lg w-[120px] h-[60px] object-cover "
+              src={auction.photoUrl}
+            />
           </Flex>
-          <img
-            className="rounded-lg w-[120px] h-[60px] object-cover "
-            src={auction.photoUrl}
-          />
         </Flex>
       </Flex>
-    </Flex>
+    </Link>
   );
 }
 

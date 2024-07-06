@@ -12,6 +12,7 @@ import { useRecoilState } from "recoil";
 import { userAtom } from "../store/atom/user";
 import { expNumber } from "../constants/regexp";
 import dayjs from "dayjs";
+import { categoryList } from "../constants/category";
 
 function Register() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ function Register() {
   const [auctionInfo, setAuctionInfo] = useState<CreateAuctionInfo>({
     name: "",
     description: "",
+    category: "",
     startPrice: "0",
     endDate: dayjs().format("YYYY-MM-DDTHH:mm"),
     photoUrl: "",
@@ -37,6 +39,10 @@ function Register() {
 
     if (expNumber.test(auctionInfo.startPrice) === false) {
       return "시작가격을 확인해주세요";
+    }
+
+    if (auctionInfo.category === "") {
+      return "카테고리를 선택해주세요";
     }
 
     if (auctionInfo.endDate.length === 0) {
@@ -67,13 +73,13 @@ function Register() {
   };
 
   const onSubmit = async () => {
-    const uploadedProfileFile =
-      await profileImageUploadRef?.current?.uploadImageFile();
-
     if (isValidAuctionInfo() !== "") {
       setErrorMessage(isValidAuctionInfo());
       return;
     }
+
+    const uploadedProfileFile =
+      await profileImageUploadRef?.current?.uploadImageFile();
 
     const response = await createAuction({
       ...auctionInfo,
@@ -115,6 +121,21 @@ function Register() {
       </Flex>
       <div className="h-[16px]"></div>
       <Flex direction="flex-col" className="w-full">
+        <Text label="카테고리" color="black" size="lg" />
+        <div className="h-[6px]"></div>
+        <select
+          name="category"
+          className="w-full h-10 py-2 px-4 rounded-lg text-gray-600"
+          onChange={onChange}
+        >
+          <option value="">선택</option>
+          {categoryList.map((category) => (
+            <option value={category}>{category}</option>
+          ))}
+        </select>
+      </Flex>
+      <div className="h-[16px]"></div>
+      <Flex direction="flex-col" className="w-full">
         <Text label="마감일시" color="black" size="lg" />
         <div className="h-[6px]"></div>
         <input
@@ -122,7 +143,7 @@ function Register() {
           name="endDate"
           value={auctionInfo.endDate}
           onChange={onChangeEndDate}
-          className="w-full h-10 py-2 px-4 rounded-lg text-gray-400"
+          className="w-full h-10 py-2 px-4 rounded-lg text-gray-600"
         ></input>
       </Flex>
       <div className="h-[16px]"></div>

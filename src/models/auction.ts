@@ -1,6 +1,7 @@
 export interface CreateAuctionInfo {
   name: string;
   description: string;
+  category: string;
   startPrice: string;
   endDate: string;
   photoUrl: string;
@@ -13,6 +14,7 @@ export interface MyAuctionInfo {
   id: number;
   name: string;
   description: string;
+  category: string;
   startPrice: string;
   photoUrl: string;
   userId: number;
