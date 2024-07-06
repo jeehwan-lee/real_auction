@@ -5,6 +5,7 @@ import Flex from "../shared/Flex";
 import Text from "../shared/Text";
 import { MyAuctionInfo } from "../../models/auction";
 import CategoryItem from "./CategoryItem";
+import Tag from "./Tag";
 
 function AuctionItem() {
   return (
@@ -15,9 +16,9 @@ function AuctionItem() {
       <Flex
         direction="flex-row"
         justify="justify-start"
-        classNameProps="w-full mb-2 pl-2"
+        classNameProps="w-full mb-2 pl-1"
       >
-        <Text label="의류" color="gray-400" size="sm" />
+        <Tag label="의류" />
       </Flex>
       <Flex
         direction="flex-row"
