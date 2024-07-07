@@ -5,22 +5,32 @@ import LeftMessage from "../components/auction/LeftMessage";
 import RightMessage from "../components/auction/RightMessage";
 import Input from "../components/shared/Input";
 import Button from "../components/shared/Button";
+import MessageInput from "../components/auction/MessageInput";
+import AuctionInfo from "../components/auction/AuctionInfo";
 
 function Auction() {
   return (
-    <Flex direction="flex-col" justify="justify-center">
-      <LeftMessage />
-      <RightMessage />
-      <LeftMessage />
-      <LeftMessage />
+    <>
+      <Flex
+        direction="flex-col"
+        justify="justify-center"
+        classNameProps="relative"
+      >
+        <AuctionInfo />
+        <div className="h-[70px]"></div>
+        <LeftMessage />
+        <RightMessage />
+        <LeftMessage />
+        <LeftMessage />
+      </Flex>
       <Flex
         direction="flex-row"
-        justify="justify-start"
-        classNameProps="w-full relative mb-4"
+        justify="justify-center"
+        classNameProps="w-full max-w-[420px] fixed bottom-0"
       >
-        <Input placeholder="메세지를 입력해주세요" />
+        <MessageInput />
       </Flex>
-    </Flex>
+    </>
   );
 }
 

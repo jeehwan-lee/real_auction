@@ -16,6 +16,8 @@ import Auction from "./pages/Auction";
 import { useRecoilState } from "recoil";
 import { userAtom } from "./store/atom/user";
 import { User } from "./models/user";
+import MessageInput from "./components/auction/MessageInput";
+import Flex from "./components/shared/Flex";
 
 function App() {
   const [user, setUser] = useRecoilState(userAtom);
@@ -29,7 +31,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        {/* <Navbar /> */}
         <main className="p-6">
           <div className="mt-[70px]"></div>
           <Routes>
@@ -71,7 +73,8 @@ function App() {
             <Route path="/signUp" element={<SignUp />} />
           </Routes>
         </main>
-        <BottomTab />
+
+        {/* <BottomTab /> */}
       </BrowserRouter>
     </div>
   );
