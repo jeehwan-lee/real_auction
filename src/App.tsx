@@ -23,8 +23,22 @@ function App() {
           <div className="mt-[70px]"></div>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/myAuction" element={<MyAuction />} />
-            <Route path="/register" element={<Register />} />
+            <Route
+              path="/myAuction"
+              element={
+                <PrivateRoute>
+                  <MyAuction />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <PrivateRoute>
+                  <Register />
+                </PrivateRoute>
+              }
+            />
             <Route
               path="/notice"
               element={

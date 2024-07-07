@@ -1,19 +1,22 @@
-import React from "react";
+import React, { HTMLAttributes } from "react";
 import Flex from "./Flex";
 import Text from "./Text";
 import { FaBars } from "react-icons/fa";
 
-interface CategoryItemProps {
+interface CategoryItemProps extends HTMLAttributes<HTMLDivElement> {
   label: string;
+  selected: boolean;
   children?: React.ReactNode;
 }
 
-function CategoryItem({ label, children }: CategoryItemProps) {
+function CategoryItem({ label, selected, children }: CategoryItemProps) {
   return (
     <Flex
       direction="flex-row"
       justify="justify-center"
-      classNameProps="px-4 mr-2 bg-white h-[40px] rounded-lg"
+      classNameProps={`px-4 mr-2 ${
+        selected ? "bg-blue-200" : "bg-white"
+      } h-[40px] rounded-lg hover:cursor-pointer`}
     >
       {children && (
         <>

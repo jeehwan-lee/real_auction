@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, KeyboardEvent } from "react";
 import Flex from "../components/shared/Flex";
 import SearchInput from "../components/shared/SearchInput";
 import { FaBars } from "react-icons/fa";
@@ -8,7 +8,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { categoryList } from "../constants/category";
-import { getAuctionList } from "../apis/auction";
+import { getAuctionList, getAuctionListBySearchParam } from "../apis/auction";
 import { AuctionInfo } from "../models/auction";
 
 function Home() {
@@ -21,17 +21,35 @@ function Home() {
     arrows: false,
   };
 
-  const [selectedCategory, setSelectedCategory] = useState("전체");
+  const [searchParam, setSearchParam] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [auctionList, setAuctionList] = useState<AuctionInfo[]>([]);
 
   useEffect(() => {
     getAuctionList().then((data) => setAuctionList(data));
   }, []);
 
+  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      getAuctionListBySearchParam(searchParam).then((data) =>
+        setAuctionList(data)
+      );
+    }
+  };
+
+  const onClickCategory = (value: string) => {
+    console.log("sdsds");
+    setSelectedCategory(value);
+  };
+
   return (
     <div>
       <Flex direction="flex-col">
-        <SearchInput />
+        <SearchInput
+          value={searchParam}
+          onChange={(e) => setSearchParam(e.target.value)}
+          onKeyDown={onKeyDown}
+        />
         <div className="h-[16px]"></div>
         <Flex
           direction="flex-col"
@@ -40,11 +58,22 @@ function Home() {
           align="align-top"
         >
           <Slider {...settings}>
-            <CategoryItem label="전체">
+            <CategoryItem
+              label="전체"
+              selected={selectedCategory === "" ? true : false}
+              onClick={() => onClickCategory("")}
+            >
               <FaBars size={16} color="grey" />
             </CategoryItem>
             {categoryList.map((category) => (
-              <CategoryItem label={category} />
+              <CategoryItem
+                label={category}
+                selected={selectedCategory === category ? true : false}
+                onClick={(e) => {
+                  console.log(e);
+                  onClickCategory(category);
+                }}
+              />
             ))}
           </Slider>
         </Flex>

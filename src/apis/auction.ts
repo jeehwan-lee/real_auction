@@ -22,6 +22,15 @@ export const getAuctionList = async () => {
   }
 };
 
+export const getAuctionListBySearchParam = async (searchParam: string) => {
+  try {
+    const { data } = await defaultInstance.get(`/auction/list/${searchParam}`);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const getMyAuctionList = async (userId: number) => {
   try {
     const { data } = await defaultInstance.get(`/auction/list/${userId}`);
