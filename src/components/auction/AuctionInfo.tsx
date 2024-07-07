@@ -3,8 +3,20 @@ import Flex from "../shared/Flex";
 import Text from "../shared/Text";
 import { MdPeopleAlt } from "react-icons/md";
 import { FaChevronRight } from "react-icons/fa6";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 function AuctionInfo() {
+  const navigate = useNavigate();
+
+  const onClickGoOut = () => {
+    navigate("/myAuction");
+  };
+
+  const onClickBuy = () => {
+    alert("준비중입니다.");
+  };
+
   return (
     <Flex
       direction="flex-col"
@@ -16,9 +28,17 @@ function AuctionInfo() {
         justify="justify-between"
         classNameProps="w-full"
       >
-        <Text label="목록" color="gray-400" size="sm"></Text>
-        <Flex direction="flex-row" justify="justify-end" classNameProps="w-fit">
+        <Link to="/myAuction">
+          <Text label="목록" color="gray-400" size="sm" />
+        </Link>
+        <Flex
+          direction="flex-row"
+          justify="justify-end"
+          classNameProps="w-fit hover:cursor-pointer"
+          onClick={onClickGoOut}
+        >
           <Text label="나가기" color="gray-400" size="sm"></Text>
+          <div className="w-[4px]"></div>
           <FaChevronRight color="gray" size={10} />
         </Flex>
       </Flex>
@@ -60,7 +80,14 @@ function AuctionInfo() {
       </Flex>
       <div className="h-[4px]"></div>
       <Flex direction="flex-row" justify="justify-end" classNameProps="w-full">
-        <Text label="상세보기" color="gray-400" size="sm"></Text>
+        <Flex
+          direction="flex-row"
+          justify="justify-end"
+          classNameProps="w-fit hover:cursor-pointer"
+          onClick={onClickBuy}
+        >
+          <Text label="구매하기" color="gray-400" size="sm"></Text>
+        </Flex>
       </Flex>
     </Flex>
   );
