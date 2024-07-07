@@ -4,9 +4,6 @@ import SearchInput from "../components/shared/SearchInput";
 import { FaBars } from "react-icons/fa";
 import CategoryItem from "../components/shared/CategoryItem";
 import AuctionItem from "../components/shared/AuctionItem";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { categoryList } from "../constants/category";
 import { getAuctionList, getAuctionListBySearchParam } from "../apis/auction";
 import { AuctionInfo } from "../models/auction";
@@ -73,15 +70,23 @@ function Home() {
           </Swiper>
         </Flex>
         <div className="h-[16px]"></div>
+        {selectedCategory}
         <Flex
           direction="flex-col"
           justify="justify-start"
           classNameProps="w-full"
           align="align-top"
         >
-          {auctionList.map((auction) => (
-            <AuctionItem auction={auction} />
-          ))}
+          {auctionList
+            .filter((data) => {
+              if (selectedCategory !== "") {
+                return data.category === selectedCategory;
+              }
+              return data;
+            })
+            .map((auction) => (
+              <AuctionItem auction={auction} />
+            ))}
         </Flex>
       </Flex>
     </div>
