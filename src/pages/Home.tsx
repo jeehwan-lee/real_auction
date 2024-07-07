@@ -70,7 +70,6 @@ function Home() {
           </Swiper>
         </Flex>
         <div className="h-[16px]"></div>
-        {selectedCategory}
         <Flex
           direction="flex-col"
           justify="justify-start"

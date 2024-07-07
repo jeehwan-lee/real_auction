@@ -33,14 +33,17 @@ function Login() {
   const onSubmit = async () => {
     try {
       const response = await login(loginInfo);
-      localStorage.setItem("accessToken", response.token);
-
-      setUser({
+      const loggedUser = {
         id: response.id,
         email: response.email,
         name: response.name,
         photoUrl: response.photoUrl,
-      });
+      };
+
+      localStorage.setItem("accessToken", response.token);
+      localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
+
+      setUser(loggedUser);
 
       navigate("/");
     } catch (error) {

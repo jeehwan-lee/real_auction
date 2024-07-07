@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "./components/shared/Navbar";
 import BottomTab from "./components/shared/BottomTab";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -13,8 +13,19 @@ import PrivateRoute from "./components/auth/PrivateRoute";
 import Spacing from "./components/shared/Spacing";
 import MyAuction from "./pages/MyAuction";
 import Auction from "./pages/Auction";
+import { useRecoilState } from "recoil";
+import { userAtom } from "./store/atom/user";
+import { User } from "./models/user";
 
 function App() {
+  const [user, setUser] = useRecoilState(userAtom);
+
+  const loggedUser = localStorage.getItem("loggedUser");
+
+  if (!user && loggedUser) {
+    setUser(JSON.parse(loggedUser));
+  }
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -55,14 +66,7 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route
-              path="/auction/:id"
-              element={
-                <PrivateRoute>
-                  <Auction />
-                </PrivateRoute>
-              }
-            />
+            <Route path="/auction/:id" element={<Auction />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signUp" element={<SignUp />} />
           </Routes>

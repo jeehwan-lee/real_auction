@@ -16,6 +16,7 @@ function Navbar() {
 
   const logoutBtnHandler = () => {
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("loggedUser");
 
     alert("로그아웃되었습니다.");
     setUser(null);
