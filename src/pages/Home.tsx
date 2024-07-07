@@ -10,17 +10,10 @@ import "slick-carousel/slick/slick-theme.css";
 import { categoryList } from "../constants/category";
 import { getAuctionList, getAuctionListBySearchParam } from "../apis/auction";
 import { AuctionInfo } from "../models/auction";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 function Home() {
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    arrows: false,
-  };
-
   const [searchParam, setSearchParam] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [auctionList, setAuctionList] = useState<AuctionInfo[]>([]);
@@ -38,7 +31,6 @@ function Home() {
   };
 
   const onClickCategory = (value: string) => {
-    console.log("sdsds");
     setSelectedCategory(value);
   };
 
@@ -57,25 +49,28 @@ function Home() {
           classNameProps="w-full"
           align="align-top"
         >
-          <Slider {...settings}>
-            <CategoryItem
-              label="전체"
-              selected={selectedCategory === "" ? true : false}
-              onClick={() => onClickCategory("")}
-            >
-              <FaBars size={16} color="grey" />
-            </CategoryItem>
-            {categoryList.map((category) => (
+          <Swiper className="w-full" slidesPerView={4}>
+            <SwiperSlide onClick={() => onClickCategory("")}>
               <CategoryItem
-                label={category}
-                selected={selectedCategory === category ? true : false}
-                onClick={(e) => {
-                  console.log(e);
+                label="전체"
+                selected={selectedCategory === "" ? true : false}
+              >
+                <FaBars size={16} color="grey" />
+              </CategoryItem>
+            </SwiperSlide>
+            {categoryList.map((category) => (
+              <SwiperSlide
+                onClick={() => {
                   onClickCategory(category);
                 }}
-              />
+              >
+                <CategoryItem
+                  label={category}
+                  selected={selectedCategory === category ? true : false}
+                />
+              </SwiperSlide>
             ))}
-          </Slider>
+          </Swiper>
         </Flex>
         <div className="h-[16px]"></div>
         <Flex

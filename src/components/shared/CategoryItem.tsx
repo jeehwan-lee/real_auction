@@ -14,7 +14,7 @@ function CategoryItem({ label, selected, children }: CategoryItemProps) {
     <Flex
       direction="flex-row"
       justify="justify-center"
-      classNameProps={`px-4 mr-2 ${
+      classNameProps={`mr-2 ${
         selected ? "bg-blue-200" : "bg-white"
       } h-[40px] rounded-lg hover:cursor-pointer`}
     >
