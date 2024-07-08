@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "./Button";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../../store/atom/user";
@@ -8,6 +8,7 @@ import { userAtom } from "../../store/atom/user";
 function Navbar() {
   const [user, setUser] = useRecoilState(userAtom);
 
+  const location = useLocation().pathname;
   const navigate = useNavigate();
 
   const loginBtnHandler = () => {
@@ -23,6 +24,8 @@ function Navbar() {
 
     navigate("/");
   };
+
+  if (location.split("/")[1] === "auction") return null;
 
   return (
     <div className="bg-white shadow-md fixed top-0 z-50 w-full max-w-[430px] justify-between flex py-3 px-4 items-center">

@@ -77,7 +77,7 @@ function Home() {
           align="align-top"
         >
           {auctionList
-            .filter((data) => {
+            ?.filter((data) => {
               if (selectedCategory !== "") {
                 return data.category === selectedCategory;
               }

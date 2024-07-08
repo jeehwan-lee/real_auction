@@ -10,6 +10,8 @@ import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 function BottomTab() {
   const location = useLocation().pathname;
 
+  if (location.split("/")[1] === "auction") return null;
+
   return (
     <div className="bg-white shadow-md justify-between flex py-4 px-6 items-center fixed bottom-0 z-50 w-full max-w-[430px]">
       <Link to="/">
