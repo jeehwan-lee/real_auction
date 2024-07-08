@@ -7,3 +7,5 @@ export const categoryList = [
   "생활",
   "취미",
 ];
+
+export const myAuctionCategoryList = ["판매중", "구매중"];
