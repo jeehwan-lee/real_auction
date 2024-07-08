@@ -60,7 +60,7 @@ function AuctionItem({ auction }: AuctionItemProps) {
   return (
     <Flex
       direction="flex-col"
-      classNameProps="bg-white rounded-lg pt-4 pb-2 px-4 hover:cursor-pointer mb-2"
+      classNameProps="bg-white rounded-lg pt-3 pb-2 px-4 hover:cursor-pointer mb-2"
       onClick={onClickAuctionItem}
     >
       <Flex
