@@ -34,24 +34,11 @@ function AuctionItem({ auction }: AuctionItemProps) {
     attendances,
   } = auction;
 
-  const checkAuctionAttendance = () => {
-    return attendances.some((attendance) => attendance.userId === user?.id);
-  };
-
   const onClickAuctionItem = async () => {
     if (!user) {
       navigate(`/login`);
       return;
     }
-
-    // Auction 참여자일 경우
-    if (checkAuctionAttendance()) {
-      navigate(`/auction/${id}`);
-      return;
-    }
-
-    // 새로운 참석자일 경우
-    await enterAuction({ userId: user?.id, auctionId: id, auctionName: name });
 
     navigate(`/auction/${id}`);
     return;
