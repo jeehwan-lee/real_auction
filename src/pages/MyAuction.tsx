@@ -78,6 +78,7 @@ function MyAuction() {
           ))}
         </Swiper>
       </Flex>
+      <div className="h-[16px]"></div>
       {filteredMyAuctionList.map((myAuction) => (
         <Link to={`/auction/${myAuction.id}`}>
           <MyAuctionItem myAuction={myAuction} />
