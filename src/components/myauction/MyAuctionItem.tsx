@@ -15,7 +15,7 @@ interface MyAuctionItemProps {
 }
 
 function MyAuctionItem({ myAuction }: MyAuctionItemProps) {
-  const { name, startPrice, endDate, photoUrl } = myAuction;
+  const { name, startPrice, endDate, photoUrl, attendances } = myAuction;
 
   return (
     <Flex
@@ -55,7 +55,11 @@ function MyAuctionItem({ myAuction }: MyAuctionItemProps) {
             <Flex direction="flex-row">
               <MdPeopleAlt color="gray" />
               <div className="w-[4px]"></div>
-              <Text label="10" color="gray-400" size="sm"></Text>
+              <Text
+                label={(attendances.length + 1).toString()}
+                color="gray-400"
+                size="sm"
+              ></Text>
             </Flex>
           </Flex>
           <div className="h-[2px]"></div>

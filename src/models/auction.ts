@@ -1,3 +1,5 @@
+import { AttendanceInfo } from "./attendance";
+
 export interface CreateAuctionInfo {
   name: string;
   description: string;
@@ -18,4 +20,5 @@ export interface AuctionInfo {
   startPrice: string;
   photoUrl: string;
   userId: number;
+  attendances: AttendanceInfo[];
 }
