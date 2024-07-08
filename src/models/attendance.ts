@@ -1,6 +1,7 @@
 export interface CreateAttendanceInfo {
   userId: number;
   auctionId: number;
+  auctionName: string;
 }
 
 export interface AttendanceInfo {

@@ -55,7 +55,8 @@ function AuctionItem({ auction }: AuctionItemProps) {
       return;
     }
 
-    await enterAuction({ userId: user?.id, auctionId: id });
+    // 새로운 참석자일 경우
+    await enterAuction({ userId: user?.id, auctionId: id, auctionName: name });
 
     navigate(`/auction/${id}`);
     return;
