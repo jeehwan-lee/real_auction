@@ -9,18 +9,63 @@ import {
   auctionItemDateFormatter,
   priceFormatter,
 } from "../../utils/formatter";
+import { useRecoilState } from "recoil";
+import { userAtom } from "../../store/atom/user";
+import { useNavigate } from "react-router";
+import { enterAuction } from "../../apis/attendance";
 
 interface AuctionItemProps {
   auction: AuctionInfo;
 }
 
 function AuctionItem({ auction }: AuctionItemProps) {
-  const { name, category, startPrice, photoUrl, endDate, id, attendances } =
-    auction;
+  const [user] = useRecoilState(userAtom);
+
+  const navigate = useNavigate();
+
+  const {
+    name,
+    category,
+    startPrice,
+    photoUrl,
+    endDate,
+    userId,
+    id,
+    attendances,
+  } = auction;
+
+  const checkAuctionAttendance = () => {
+    return attendances.some((attendance) => attendance.userId === user?.id);
+  };
+
+  const onClickAuctionItem = async () => {
+    if (!user) {
+      navigate(`/login`);
+      return;
+    }
+    // Auction 개설자일 경우
+    if (user?.id === userId) {
+      navigate(`/auction/${id}`);
+      return;
+    }
+
+    // Auction 참여자일 경우
+    if (checkAuctionAttendance()) {
+      navigate(`/auction/${id}`);
+      return;
+    }
+
+    await enterAuction({ userId: user?.id, auctionId: id });
+
+    navigate(`/auction/${id}`);
+    return;
+  };
+
   return (
     <Flex
       direction="flex-col"
       classNameProps="bg-white rounded-lg pt-4 pb-2 px-4 hover:cursor-pointer mb-2"
+      onClick={onClickAuctionItem}
     >
       <Flex
         direction="flex-row"
