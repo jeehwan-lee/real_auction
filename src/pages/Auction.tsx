@@ -7,6 +7,7 @@ import Input from "../components/shared/Input";
 import Button from "../components/shared/Button";
 import MessageInput from "../components/auction/MessageInput";
 import AuctionInfo from "../components/auction/AuctionInfo";
+import CenterMessage from "../components/auction/CenterMessage";
 
 function Auction() {
   return (
@@ -18,9 +19,11 @@ function Auction() {
       >
         <AuctionInfo />
         <div className="h-[70px]"></div>
+        <CenterMessage />
         <LeftMessage />
         <RightMessage />
         <LeftMessage />
+        <CenterMessage />
         <LeftMessage />
       </Flex>
       <Flex
