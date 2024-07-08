@@ -43,11 +43,6 @@ function AuctionItem({ auction }: AuctionItemProps) {
       navigate(`/login`);
       return;
     }
-    // Auction 개설자일 경우
-    if (user?.id === userId) {
-      navigate(`/auction/${id}`);
-      return;
-    }
 
     // Auction 참여자일 경우
     if (checkAuctionAttendance()) {
@@ -109,7 +104,7 @@ function AuctionItem({ auction }: AuctionItemProps) {
               <MdPeopleAlt color="gray" />
               <div className="w-[4px]"></div>
               <Text
-                label={(attendances.length + 1).toString()}
+                label={attendances.length.toString()}
                 color="gray-400"
                 size="sm"
               ></Text>
