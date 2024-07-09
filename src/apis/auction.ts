@@ -41,3 +41,12 @@ export const getMyAuctionList = async (userId: number) => {
     console.log(e);
   }
 };
+
+export const getAuctionByAuctionId = async (auctionId: number) => {
+  try {
+    const { data } = await defaultInstance.get(`/auction/${auctionId}`);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
