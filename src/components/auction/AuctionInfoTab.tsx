@@ -5,12 +5,18 @@ import { MdPeopleAlt } from "react-icons/md";
 import { FaChevronRight } from "react-icons/fa6";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { AuctionInfo } from "../../models/auction";
+import { dateFormatter, priceFormatter } from "../../utils/formatter";
 
 interface AuctionInfoProps {
-  auctionId: string;
+  auction: AuctionInfo;
   onClickExit: () => void;
 }
-function AuctionInfoTab({ auctionId, onClickExit }: AuctionInfoProps) {
+
+function AuctionInfoTab({ auction, onClickExit }: AuctionInfoProps) {
+  const { name, description, startPrice, endDate, photoUrl, attendances } =
+    auction;
+
   const onClickGoOut = () => {
     onClickExit();
   };
@@ -52,7 +58,7 @@ function AuctionInfoTab({ auctionId, onClickExit }: AuctionInfoProps) {
       >
         <img
           className="rounded-lg w-[80px] h-[80px] object-cover "
-          src="https://real-auction.s3.ap-southeast-2.amazonaws.com/image/profile/defaultImage"
+          src={photoUrl}
         />
         <div className="w-[20px]"></div>
         <Flex
@@ -61,20 +67,28 @@ function AuctionInfoTab({ auctionId, onClickExit }: AuctionInfoProps) {
           align="items-start"
           classNameProps="w-full"
         >
-          <Text label="자동차" color="black" size="base"></Text>
+          <Text label={name} color="black" size="base"></Text>
           <div className="h-[2px]"></div>
-          <Text label={`시작가 10000원`} color="gray-400" size="sm"></Text>
+          <Text
+            label={`시작가 ${priceFormatter(startPrice)}원`}
+            color="gray-400"
+            size="sm"
+          ></Text>
           <div className="h-[2px]"></div>
           <Flex direction="flex-row" classNameProps="w-full">
             <Text
-              label={`24.06.10.(수) 마감`}
+              label={`${dateFormatter(endDate)} 마감`}
               color="gray-400"
               size="sm"
             ></Text>
             <Flex direction="flex-row">
               <MdPeopleAlt color="gray" />
               <div className="w-[4px]"></div>
-              <Text label="10" color="gray-400" size="sm"></Text>
+              <Text
+                label={attendances.length.toString()}
+                color="gray-400"
+                size="sm"
+              ></Text>
             </Flex>
           </Flex>
           <div className="h-[2px]"></div>

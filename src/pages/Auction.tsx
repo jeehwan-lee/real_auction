@@ -85,16 +85,16 @@ function Auction() {
     getChatList(params.id, page).then((result) => setChatList(result));
 
     // 2-2. 추후에는 스크롤 시 더 위에것 가져와서 state 앞에 넣어두기
-    window.addEventListener("scroll", handleScrollTop);
+    //window.addEventListener("scroll", handleScrollTop);
 
     // 3. SOCKET 연결
-    socket.on("connect", () => {
-      console.log("socket connected");
-    });
+    // socket.on("connect", () => {
+    //   console.log("socket connected");
+    // });
 
-    socket.on("disconnect", () => {
-      console.log("socket disconnected");
-    });
+    // socket.on("disconnect", () => {
+    //   console.log("socket disconnected");
+    // });
 
     socket.on("message", (data: ChatInfo) => {
       // data를 받을때마다 chatList state에 넣어두기
@@ -128,10 +128,12 @@ function Auction() {
         justify="justify-center"
         classNameProps="relative"
       >
-        <AuctionInfoTab
-          auctionId={params.id}
-          onClickExit={handleClickExitButton}
-        />
+        {auction && (
+          <AuctionInfoTab
+            auction={auction}
+            onClickExit={handleClickExitButton}
+          />
+        )}
         <div className="h-[70px]"></div>
         {chatList.map((chat) => {
           if (chat.messageType === "notice") {
