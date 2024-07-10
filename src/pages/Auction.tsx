@@ -15,6 +15,7 @@ import { userAtom } from "../store/atom/user";
 import { AuctionInfo } from "../models/auction";
 import { getAuctionByAuctionId } from "../apis/auction";
 import { ChatInfo } from "../models/chat";
+import { getChatList } from "../apis/chat";
 
 function Auction() {
   const socket = io(process.env.REACT_APP_BASE_URL);
@@ -46,6 +47,8 @@ function Auction() {
 
   useEffect(() => {
     if (!user) return;
+
+    getChatList(params.id).then((result) => setChatList(result));
 
     // 1. AuctionId를 통해 Auction 정보 가져오기
 
