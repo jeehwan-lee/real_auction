@@ -16,6 +16,8 @@ import { AuctionInfo } from "../models/auction";
 import { getAuctionByAuctionId } from "../apis/auction";
 import { ChatInfo } from "../models/chat";
 import { getChatList } from "../apis/chat";
+import { CiPaperplane } from "react-icons/ci";
+import { IoPaperPlaneOutline } from "react-icons/io5";
 
 function Auction() {
   const socket = io(process.env.REACT_APP_BASE_URL);
@@ -32,6 +34,8 @@ function Auction() {
   const [page, setPage] = useState<number>(1);
 
   const submitMessage = () => {
+    if (message === "") return;
+
     socket.emit("message", {
       messageType: "chat",
       message: message,
@@ -39,9 +43,11 @@ function Auction() {
       auctionId: params.id,
       user: user,
     });
+
+    setMessage("");
   };
 
-  const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       submitMessage();
     }
@@ -107,7 +113,6 @@ function Auction() {
         justify="justify-center"
         classNameProps="relative"
       >
-        <AuctionInfoTab />
         <div className="h-[70px]"></div>
         {chatList.map((chat) => {
           if (chat.messageType === "notice") {
@@ -129,9 +134,16 @@ function Auction() {
       >
         <MessageInput
           onKeyDown={onKeyDown}
-          valueProps={message}
-          onChangeValue={(value) => setMessage(value)}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
         />
+        <Flex
+          direction="flex-row"
+          justify="justify-center"
+          classNameProps="absolute right-7 bottom-[8px] cursor-pointer"
+        >
+          <IoPaperPlaneOutline size={22} color="gray" onClick={submitMessage} />
+        </Flex>
       </Flex>
     </>
   );
