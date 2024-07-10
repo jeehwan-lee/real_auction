@@ -5,10 +5,7 @@ import Flex from "../shared/Flex";
 import Text from "../shared/Text";
 import { AuctionInfo } from "../../models/auction";
 import dayjs from "dayjs";
-import {
-  auctionItemDateFormatter,
-  priceFormatter,
-} from "../../utils/formatter";
+import { dateFormatter, priceFormatter } from "../../utils/formatter";
 
 interface MyAuctionItemProps {
   myAuction: AuctionInfo;
@@ -48,7 +45,7 @@ function MyAuctionItem({ myAuction }: MyAuctionItemProps) {
           <div className="h-[2px]"></div>
           <Flex direction="flex-row" classNameProps="w-full">
             <Text
-              label={`${auctionItemDateFormatter(endDate)} 마감`}
+              label={`${dateFormatter(endDate)} 마감`}
               color="gray-400"
               size="sm"
             ></Text>

@@ -5,13 +5,13 @@ export const priceFormatter = (price: string) => {
   return formattedPrice;
 };
 
-export const auctionItemDateFormatter = (date: string) => {
+export const dateFormatter = (date: string) => {
   const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
   const dayOfWeek = weekdays[dayjs(date).day()];
 
-  const formattedEndDate = `${dayjs(date).format("M.D")}(${dayOfWeek}) ${dayjs(
-    date
-  ).format("HH:mm")}`;
+  const formattedEndDate = `${dayjs(date).format(
+    "YY.MM.DD."
+  )}(${dayOfWeek}) ${dayjs(date).format("HH:mm")}`;
 
   return formattedEndDate;
 };

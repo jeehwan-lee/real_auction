@@ -29,6 +29,7 @@ function Auction() {
   const [chatList, setChatList] = useState<ChatInfo[]>([]);
 
   const [message, setMessage] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
 
   const submitMessage = () => {
     socket.emit("message", {
@@ -36,6 +37,7 @@ function Auction() {
       message: message,
       userId: user?.id,
       auctionId: params.id,
+      user: user,
     });
   };
 
@@ -45,16 +47,24 @@ function Auction() {
     }
   };
 
+  const handleScrollTop = () => {
+    if (window.scrollY == 0) {
+      getChatList(params.id, 2).then((result) => {
+        setChatList((prev) => [result, ...prev]);
+      });
+    }
+  };
+
   useEffect(() => {
     if (!user) return;
-
-    getChatList(params.id).then((result) => setChatList(result));
-
     // 1. AuctionId를 통해 Auction 정보 가져오기
 
     // 2. Chat Table에서 Chatting 내역 가져오기 최근 10개만
     // 2-1. 받아서 ChatList State에 넣어두기
+    getChatList(params.id, page).then((result) => setChatList(result));
+
     // 2-2. 추후에는 스크롤 시 더 위에것 가져와서 state 앞에 넣어두기
+    window.addEventListener("scroll", handleScrollTop);
 
     // 3. SOCKET 연결
     socket.on("connect", () => {
@@ -66,7 +76,6 @@ function Auction() {
     });
 
     socket.on("message", (data: ChatInfo) => {
-      console.log(data);
       // data를 받을때마다 chatList state에 넣어두기
       setChatList((prev) => [...prev, data]);
     });
@@ -106,9 +115,9 @@ function Auction() {
           }
 
           if (chat.userId === user?.id) {
-            return <RightMessage message={chat.message} />;
+            return <RightMessage chat={chat} />;
           } else {
-            return <LeftMessage message={chat.message} />;
+            return <LeftMessage chat={chat} />;
           }
         })}
       </Flex>

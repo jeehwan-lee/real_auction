@@ -20,6 +20,7 @@ AuthGuard 를 사용한 인증처리
 ===================
 
 무한스크롤 기능
+=> https://velog.io/@sanghyeon/React%EC%97%90%EC%84%9C-Scroll-Event-%EA%B0%90%EC%A7%80%ED%95%98%EA%B8%B0 참고
 
 5. 나가기 기능 구현
 

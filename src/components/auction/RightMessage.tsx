@@ -1,12 +1,16 @@
 import React from "react";
 import Flex from "../shared/Flex";
 import Text from "../shared/Text";
+import { ChatInfo } from "../../models/chat";
+import { dateFormatter } from "../../utils/formatter";
 
 interface RightMessageProps {
-  message: string;
+  chat: ChatInfo;
 }
 
-function RightMessage({ message }: RightMessageProps) {
+function RightMessage({ chat }: RightMessageProps) {
+  const { message, createdDt } = chat;
+  console.log(chat);
   return (
     <Flex
       direction="flex-row"
@@ -24,7 +28,7 @@ function RightMessage({ message }: RightMessageProps) {
           justify="justify-start"
           classNameProps="w-full"
         >
-          <Text label="24.07.08.(수) 17:50" color="gray-500" size="sm" />
+          <Text label={dateFormatter(createdDt)} color="gray-500" size="sm" />
         </Flex>
         <div className="h-[4px]"></div>
         <Flex

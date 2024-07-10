@@ -1,12 +1,15 @@
 import React from "react";
 import Flex from "../shared/Flex";
 import Text from "../shared/Text";
+import { ChatInfo } from "../../models/chat";
 
 interface LeftMessageProps {
-  message: string;
+  chat: ChatInfo;
 }
 
-function LeftMessage({ message }: LeftMessageProps) {
+function LeftMessage({ chat }: LeftMessageProps) {
+  const { message, createdDt, user } = chat;
+
   return (
     <Flex
       direction="flex-row"
@@ -15,7 +18,7 @@ function LeftMessage({ message }: LeftMessageProps) {
     >
       <img
         className="rounded-full w-[50px] h-[50px] absolute top-0"
-        src="https://real-auction.s3.ap-southeast-2.amazonaws.com/image/profile/defaultImage"
+        src={user.photoUrl}
       />
       <div className="w-[10px]"></div>
       <Flex
@@ -29,7 +32,7 @@ function LeftMessage({ message }: LeftMessageProps) {
           justify="justify-start"
           classNameProps="w-full"
         >
-          <Text label="이지환" color="black" size="base" bold={true} />
+          <Text label={user.name} color="black" size="base" bold={true} />
           <div className="w-[10px]"></div>
           <Text label="24.07.08.(수) 17:50" color="gray-500" size="sm" />
         </Flex>
