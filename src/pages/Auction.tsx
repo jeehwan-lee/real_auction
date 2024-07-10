@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { KeyboardEvent, useEffect, useRef, useState } from "react";
 import Flex from "../components/shared/Flex";
 import Text from "../components/shared/Text";
 import LeftMessage from "../components/auction/LeftMessage";
@@ -17,20 +17,31 @@ import { getAuctionByAuctionId } from "../apis/auction";
 import { ChatInfo } from "../models/chat";
 
 function Auction() {
-  const socket = io(process.env.REACT_APP_BASE_URL, { autoConnect: false });
+  const socket = io(process.env.REACT_APP_BASE_URL);
   const params: any = useParams();
 
   const [user] = useRecoilState(userAtom);
 
+  const messageEndRef = useRef<HTMLDivElement | null>(null);
+
   const [auction, setAuction] = useState<AuctionInfo | null>(null);
   const [chatList, setChatList] = useState<ChatInfo[]>([]);
 
+  const [message, setMessage] = useState<string>("");
+
   const submitMessage = () => {
     socket.emit("message", {
-      userId: 5,
-      roomId: params.id,
-      message: "hello",
+      messageType: "chat",
+      message: message,
+      userId: user?.id,
+      auctionId: params.id,
     });
+  };
+
+  const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter") {
+      submitMessage();
+    }
   };
 
   useEffect(() => {
@@ -41,10 +52,8 @@ function Auction() {
     // 2. Chat Table에서 Chatting 내역 가져오기 최근 10개만
     // 2-1. 받아서 ChatList State에 넣어두기
     // 2-2. 추후에는 스크롤 시 더 위에것 가져와서 state 앞에 넣어두기
+
     // 3. SOCKET 연결
-
-    socket.connect();
-
     socket.on("connect", () => {
       console.log("socket connected");
     });
@@ -54,6 +63,7 @@ function Auction() {
     });
 
     socket.on("message", (data: ChatInfo) => {
+      console.log(data);
       // data를 받을때마다 chatList state에 넣어두기
       setChatList((prev) => [...prev, data]);
     });
@@ -61,15 +71,23 @@ function Auction() {
     socket.emit("join", {
       userId: user?.id,
       userName: user?.name,
-      roomId: params.id,
+      auctionId: params.id,
     });
 
     return () => {
+      socket.disconnect();
+
       socket.off("connect");
       socket.off("disconnect");
       socket.off("message");
     };
   }, []);
+
+  useEffect(() => {
+    // CHAT 데이터를 서버로부터 전송받으면 스크롤을 맨 아래로 내린다.
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chatList]);
+
   return (
     <>
       <Flex
@@ -81,24 +99,28 @@ function Auction() {
         <div className="h-[70px]"></div>
         {chatList.map((chat) => {
           if (chat.messageType === "notice") {
-            return <CenterMessage />;
+            return <CenterMessage message={chat.message} />;
           }
 
           if (chat.userId === user?.id) {
-            return <RightMessage />;
+            return <RightMessage message={chat.message} />;
           } else {
-            <LeftMessage />;
+            return <LeftMessage message={chat.message} />;
           }
         })}
       </Flex>
+      <div ref={messageEndRef}></div>
       <Flex
         direction="flex-row"
         justify="justify-center"
         classNameProps="w-full max-w-[420px] fixed bottom-0"
       >
-        <MessageInput />
+        <MessageInput
+          onKeyDown={onKeyDown}
+          valueProps={message}
+          onChangeValue={(value) => setMessage(value)}
+        />
       </Flex>
-      <Button label="전송" onClick={submitMessage}></Button>
     </>
   );
 }

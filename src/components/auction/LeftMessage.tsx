@@ -2,7 +2,11 @@ import React from "react";
 import Flex from "../shared/Flex";
 import Text from "../shared/Text";
 
-function LeftMessage() {
+interface LeftMessageProps {
+  message: string;
+}
+
+function LeftMessage({ message }: LeftMessageProps) {
   return (
     <Flex
       direction="flex-row"
@@ -35,11 +39,7 @@ function LeftMessage() {
           justify="justify-start"
           classNameProps="w-fit max-w-64 bg-white py-2 px-4 rounded-lg"
         >
-          <Text
-            label="안녕하세요. 경매를 시작합니다. 오늘의 경매물건은 책상입니다."
-            color="black"
-            size="base"
-          />
+          <Text label={message} color="black" size="base" />
         </Flex>
       </Flex>
     </Flex>

@@ -7,13 +7,20 @@ import React, {
 } from "react";
 
 interface MessageInputProps extends HTMLAttributes<HTMLTextAreaElement> {
+  valueProps: string;
+  onChangeValue: (value: string) => void;
   classNameProps?: string;
 }
 
-function MessageInput({ classNameProps, ...props }: MessageInputProps) {
+function MessageInput({
+  valueProps,
+  onChangeValue,
+  classNameProps,
+  ...props
+}: MessageInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>(valueProps);
 
   useEffect(() => {
     adjustTextareaHeight();
@@ -27,6 +34,7 @@ function MessageInput({ classNameProps, ...props }: MessageInputProps) {
   };
 
   const onChange = (e: any) => {
+    onChangeValue(e.target.value);
     setValue(e.target.value);
   };
 
