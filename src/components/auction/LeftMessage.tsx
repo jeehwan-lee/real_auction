@@ -2,6 +2,7 @@ import React from "react";
 import Flex from "../shared/Flex";
 import Text from "../shared/Text";
 import { ChatInfo } from "../../models/chat";
+import { dateFormatter } from "../../utils/formatter";
 
 interface LeftMessageProps {
   chat: ChatInfo;
@@ -34,7 +35,7 @@ function LeftMessage({ chat }: LeftMessageProps) {
         >
           <Text label={user.name} color="black" size="base" bold={true} />
           <div className="w-[10px]"></div>
-          <Text label="24.07.08.(수) 17:50" color="gray-500" size="sm" />
+          <Text label={dateFormatter(createdDt)} color="gray-500" size="sm" />
         </Flex>
         <div className="h-[4px]"></div>
         <Flex
