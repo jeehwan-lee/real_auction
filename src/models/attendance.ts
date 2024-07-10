@@ -4,6 +4,12 @@ export interface CreateAttendanceInfo {
   auctionName: string;
 }
 
+export interface DeleteAttendanceInfo {
+  userId: number;
+  auctionId: number;
+  auctionName: string;
+}
+
 export interface AttendanceInfo {
   createdDt: string;
   id: number;

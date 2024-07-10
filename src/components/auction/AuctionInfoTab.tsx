@@ -6,11 +6,13 @@ import { FaChevronRight } from "react-icons/fa6";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
-function AuctionInfoTab() {
-  const navigate = useNavigate();
-
+interface AuctionInfoProps {
+  auctionId: string;
+  onClickExit: () => void;
+}
+function AuctionInfoTab({ auctionId, onClickExit }: AuctionInfoProps) {
   const onClickGoOut = () => {
-    navigate("/myAuction");
+    onClickExit();
   };
 
   const onClickBuy = () => {

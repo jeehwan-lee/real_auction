@@ -9,7 +9,7 @@ import MessageInput from "../components/auction/MessageInput";
 import AuctionInfoTab from "../components/auction/AuctionInfoTab";
 import CenterMessage from "../components/auction/CenterMessage";
 import { io } from "socket.io-client";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useRecoilState } from "recoil";
 import { userAtom } from "../store/atom/user";
 import { AuctionInfo } from "../models/auction";
@@ -18,10 +18,12 @@ import { ChatInfo } from "../models/chat";
 import { getChatList } from "../apis/chat";
 import { CiPaperplane } from "react-icons/ci";
 import { IoPaperPlaneOutline } from "react-icons/io5";
+import { exitAuction } from "../apis/attendance";
 
 function Auction() {
   const socket = io(process.env.REACT_APP_BASE_URL);
   const params: any = useParams();
+  const navigate = useNavigate();
 
   const [user] = useRecoilState(userAtom);
 
@@ -53,6 +55,18 @@ function Auction() {
     }
   };
 
+  const handleClickExitButton = async () => {
+    if (!user || !auction) return;
+
+    await exitAuction({
+      auctionId: Number(params.id),
+      userId: user?.id,
+      auctionName: auction?.name,
+    }).then(() => {
+      navigate("/myAuction");
+    });
+  };
+
   const handleScrollTop = () => {
     if (window.scrollY == 0) {
       getChatList(params.id, 2).then((result) => {
@@ -64,6 +78,7 @@ function Auction() {
   useEffect(() => {
     if (!user) return;
     // 1. AuctionId를 통해 Auction 정보 가져오기
+    getAuctionByAuctionId(params.id).then((auction) => setAuction(auction));
 
     // 2. Chat Table에서 Chatting 내역 가져오기 최근 10개만
     // 2-1. 받아서 ChatList State에 넣어두기
@@ -113,6 +128,10 @@ function Auction() {
         justify="justify-center"
         classNameProps="relative"
       >
+        <AuctionInfoTab
+          auctionId={params.id}
+          onClickExit={handleClickExitButton}
+        />
         <div className="h-[70px]"></div>
         {chatList.map((chat) => {
           if (chat.messageType === "notice") {
