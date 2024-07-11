@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Flex from "../shared/Flex";
 import Text from "../shared/Text";
 import { MdPeopleAlt } from "react-icons/md";
@@ -7,6 +7,10 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { AuctionInfo } from "../../models/auction";
 import { dateFormatter, priceFormatter } from "../../utils/formatter";
+import Input from "../shared/Input";
+import Button from "../shared/Button";
+import HorizontalBar from "../shared/HorizontalBar";
+import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 
 interface AuctionInfoProps {
   auction: AuctionInfo;
@@ -17,12 +21,23 @@ function AuctionInfoTab({ auction, onClickExit }: AuctionInfoProps) {
   const { name, description, startPrice, endDate, photoUrl, attendances } =
     auction;
 
+  const [openDescTab, setOpenDescTab] = useState<boolean>(false);
+  const [bidPrice, setBidPrice] = useState<string>("");
+
   const onClickGoOut = () => {
     onClickExit();
   };
 
   const onClickBuy = () => {
     alert("준비중입니다.");
+  };
+
+  const onClickShowDesc = () => {
+    setOpenDescTab(!openDescTab);
+  };
+
+  const onChange = (e: { target: { name: any; value: any } }) => {
+    setBidPrice(e.target.value);
   };
 
   return (
@@ -39,6 +54,7 @@ function AuctionInfoTab({ auction, onClickExit }: AuctionInfoProps) {
         <Link to="/myAuction">
           <Text label="목록" color="gray-400" size="sm" />
         </Link>
+
         <Flex
           direction="flex-row"
           justify="justify-end"
@@ -50,7 +66,7 @@ function AuctionInfoTab({ auction, onClickExit }: AuctionInfoProps) {
           <FaChevronRight color="gray" size={10} />
         </Flex>
       </Flex>
-      <div className="h-[4px]"></div>
+      <div className="h-[8px]"></div>
       <Flex
         direction="flex-row"
         justify="justify-start"
@@ -100,11 +116,49 @@ function AuctionInfoTab({ auction, onClickExit }: AuctionInfoProps) {
           direction="flex-row"
           justify="justify-end"
           classNameProps="w-fit hover:cursor-pointer"
-          onClick={onClickBuy}
+          onClick={onClickShowDesc}
         >
-          <Text label="구매하기" color="gray-400" size="sm"></Text>
+          <Text label="상세보기" color="gray-400" size="sm"></Text>
+          {openDescTab ? (
+            <MdArrowDropUp color="gray" size={18} />
+          ) : (
+            <MdArrowDropDown color="gray" size={18} />
+          )}
         </Flex>
       </Flex>
+      <div className="h-[4px]"></div>
+      {openDescTab && (
+        <Flex
+          direction="flex-col"
+          justify="justify-center"
+          align="items-start"
+          classNameProps="w-full"
+        >
+          <div className="h-[6px]"></div>
+          <HorizontalBar />
+          <div className="h-[14px]"></div>
+          <Text label="현재가격" color="black" size="base" bold={true} />
+          <div className="h-[6px]"></div>
+          <Text label={`1,000,000원`} color="gray-400" size="base"></Text>
+          <div className="h-[10px]"></div>
+          <Text label="상품설명" color="black" size="base" bold={true} />
+          <div className="h-[6px]"></div>
+          <Text label={description} color="gray-400" size="base"></Text>
+          <div className="h-[10px]"></div>
+          <Flex direction="flex-col" className="w-full">
+            <Text label="입찰가" color="black" size="base" bold={true} />
+            <div className="h-[6px]"></div>
+            <Input
+              placeholder="입찰가를 입력하세요"
+              name="bidPrice"
+              value={bidPrice}
+              onChange={onChange}
+            />
+          </Flex>
+          <div className="h-[10px]"></div>
+          <Button label="구매하기" onClick={() => onClickBuy()} />
+        </Flex>
+      )}
     </Flex>
   );
 }
