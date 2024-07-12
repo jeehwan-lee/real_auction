@@ -6,6 +6,7 @@ export interface CreateAuctionInfo {
   description: string;
   category: string;
   startPrice: string;
+  bidIncrement: string;
   endDate: string;
   photoUrl: string;
   userId: number;
@@ -21,6 +22,7 @@ export interface AuctionInfo {
   startPrice: string;
   photoUrl: string;
   userId: number;
+  bidIncrement: string;
   attendances: AttendanceInfo[];
   bids?: bidInfo[];
   maxBid?: bidInfo;

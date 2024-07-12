@@ -27,6 +27,7 @@ function AuctionInfoTab({
     name,
     description,
     startPrice,
+    bidIncrement,
     endDate,
     photoUrl,
     attendances,
@@ -51,6 +52,11 @@ function AuctionInfoTab({
 
     if (Number(maxBid?.bidPrice) > Number(bidPrice)) {
       setErrorMessage("현재 입찰가보다 낮은 금액은 입력할 수 없습니다");
+      return;
+    }
+
+    if (Number(bidPrice) % Number(bidIncrement) !== 0) {
+      setErrorMessage("최소입찰단위에 맞는 금액을 입력해주세요");
       return;
     }
 
@@ -168,6 +174,14 @@ function AuctionInfoTab({
           <div className="h-[6px]"></div>
           <Text
             label={`${priceFormatter(maxBid ? maxBid?.bidPrice : "0")} 원`}
+            color="gray-400"
+            size="base"
+          ></Text>
+          <div className="h-[10px]"></div>
+          <Text label="최소입찰단위" color="black" size="base" bold={true} />
+          <div className="h-[6px]"></div>
+          <Text
+            label={`${priceFormatter(bidIncrement)} 원`}
             color="gray-400"
             size="base"
           ></Text>

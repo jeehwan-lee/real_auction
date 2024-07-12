@@ -25,6 +25,7 @@ function Register() {
     description: "",
     category: "",
     startPrice: "0",
+    bidIncrement: "0",
     endDate: dayjs().format("YYYY-MM-DDTHH:mm"),
     photoUrl: "",
     userId: user?.id || 0,
@@ -39,6 +40,10 @@ function Register() {
 
     if (expNumber.test(auctionInfo.startPrice) === false) {
       return "시작가격을 확인해주세요";
+    }
+
+    if (expNumber.test(auctionInfo.bidIncrement) === false) {
+      return "최소 입찰단위를 확인해주세요";
     }
 
     if (auctionInfo.category === "") {
@@ -116,6 +121,17 @@ function Register() {
           placeholder="시작가격을 입력하세요"
           name="startPrice"
           value={auctionInfo.startPrice}
+          onChange={onChange}
+        />
+      </Flex>
+      <div className="h-[16px]"></div>
+      <Flex direction="flex-col" className="w-full">
+        <Text label="최소입찰단위" color="black" size="lg" />
+        <div className="h-[6px]"></div>
+        <Input
+          placeholder="최소입찰단위을 입력하세요"
+          name="bidIncrement"
+          value={auctionInfo.bidIncrement}
           onChange={onChange}
         />
       </Flex>
