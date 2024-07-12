@@ -10,7 +10,7 @@ interface RightMessageProps {
 
 function RightMessage({ chat }: RightMessageProps) {
   const { message, createdDt } = chat;
-  console.log(chat);
+
   return (
     <Flex
       direction="flex-row"

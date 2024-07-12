@@ -86,6 +86,10 @@ function Register() {
     const uploadedProfileFile =
       await profileImageUploadRef?.current?.uploadImageFile();
 
+    if (!uploadedProfileFile) {
+      return;
+    }
+
     const response = await createAuction({
       ...auctionInfo,
       photoUrl: uploadedProfileFile,
