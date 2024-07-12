@@ -58,13 +58,14 @@ function Auction() {
   const handleClickExitButton = async () => {
     if (!user || !auction) return;
 
-    await exitAuction({
-      auctionId: Number(params.id),
+    socket.emit("exit", {
       userId: user?.id,
+      auctionId: params.id,
       auctionName: auction?.name,
-    }).then(() => {
-      navigate("/myAuction");
+      userName: user?.name,
     });
+
+    navigate("/myAuction");
   };
 
   const handleClickBidButton = async (bidPrice: string) => {
@@ -117,7 +118,7 @@ function Auction() {
       auctionId: params.id,
     });
 
-    socket.on("bidding", (data: AuctionInfo) => {
+    socket.on("updateAuctionInfo", (data: AuctionInfo) => {
       setAuction(data);
     });
 
