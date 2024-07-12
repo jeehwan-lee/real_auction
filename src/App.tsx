@@ -32,7 +32,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar />
-        <main className="p-6">
+        <main className="p-6 pb-[70px]">
           <div className="mt-[70px]"></div>
           <Routes>
             <Route path="/" element={<Home />} />
