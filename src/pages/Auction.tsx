@@ -117,6 +117,10 @@ function Auction() {
       auctionId: params.id,
     });
 
+    socket.on("bidding", (data: AuctionInfo) => {
+      setAuction(data);
+    });
+
     return () => {
       socket.disconnect();
 

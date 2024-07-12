@@ -43,13 +43,20 @@ function AuctionInfoTab({
   };
 
   const onClickBuy = () => {
-    if (maxBid?.bidPrice && Number(maxBid?.bidPrice) > Number(bidPrice)) {
+    if (!maxBid) {
+      onClickBid(bidPrice);
+      setBidPrice("");
+      return;
+    }
+
+    if (Number(maxBid?.bidPrice) > Number(bidPrice)) {
       setErrorMessage("현재 입찰가보다 낮은 금액은 입력할 수 없습니다");
       return;
     }
 
     setErrorMessage("");
     onClickBid(bidPrice);
+    setBidPrice("");
   };
 
   const onClickShowDesc = () => {
@@ -160,7 +167,7 @@ function AuctionInfoTab({
           <Text label="현재가격" color="black" size="base" bold={true} />
           <div className="h-[6px]"></div>
           <Text
-            label={`${priceFormatter(maxBid?.bidPrice as string)}`}
+            label={`${priceFormatter(maxBid ? maxBid?.bidPrice : "0")} 원`}
             color="gray-400"
             size="base"
           ></Text>
