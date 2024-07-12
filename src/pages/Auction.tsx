@@ -67,6 +67,16 @@ function Auction() {
     });
   };
 
+  const handleClickBidButton = async (bidPrice: string) => {
+    socket.emit("bidding", {
+      userId: user?.id,
+      auctionId: params.id,
+      auctionName: auction?.name,
+      userName: user?.name,
+      bidPrice: bidPrice,
+    });
+  };
+
   const handleScrollTop = () => {
     if (window.scrollY == 0) {
       getChatList(params.id, 2).then((result) => {
@@ -132,6 +142,7 @@ function Auction() {
           <AuctionInfoTab
             auction={auction}
             onClickExit={handleClickExitButton}
+            onClickBid={handleClickBidButton}
           />
         )}
         <div className="h-[70px]"></div>

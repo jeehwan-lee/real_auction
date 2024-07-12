@@ -15,9 +15,14 @@ import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 interface AuctionInfoProps {
   auction: AuctionInfo;
   onClickExit: () => void;
+  onClickBid: (bidPrice: string) => void;
 }
 
-function AuctionInfoTab({ auction, onClickExit }: AuctionInfoProps) {
+function AuctionInfoTab({
+  auction,
+  onClickExit,
+  onClickBid,
+}: AuctionInfoProps) {
   const { name, description, startPrice, endDate, photoUrl, attendances } =
     auction;
 
@@ -29,7 +34,7 @@ function AuctionInfoTab({ auction, onClickExit }: AuctionInfoProps) {
   };
 
   const onClickBuy = () => {
-    alert("준비중입니다.");
+    onClickBid(bidPrice);
   };
 
   const onClickShowDesc = () => {
