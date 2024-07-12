@@ -80,7 +80,7 @@ function Auction() {
 
   const handleScrollTop = () => {
     if (window.scrollY == 0) {
-      getChatList(params.id, 2).then((result) => {
+      getChatList(params.id, 2, user?.id as number).then((result) => {
         setChatList((prev) => [result, ...prev]);
       });
     }
@@ -88,12 +88,19 @@ function Auction() {
 
   useEffect(() => {
     if (!user) return;
+
+    socket.emit("join", {
+      userId: user?.id,
+      userName: user?.name,
+      auctionId: params.id,
+    });
+
     // 1. AuctionId를 통해 Auction 정보 가져오기
     getAuctionByAuctionId(params.id).then((auction) => setAuction(auction));
 
     // 2. Chat Table에서 Chatting 내역 가져오기 최근 10개만
     // 2-1. 받아서 ChatList State에 넣어두기
-    getChatList(params.id, page).then((result) => setChatList(result));
+    getChatList(params.id, page, user.id).then((result) => setChatList(result));
 
     // 2-2. 추후에는 스크롤 시 더 위에것 가져와서 state 앞에 넣어두기
     //window.addEventListener("scroll", handleScrollTop);
@@ -110,12 +117,6 @@ function Auction() {
     socket.on("message", (data: ChatInfo) => {
       // data를 받을때마다 chatList state에 넣어두기
       setChatList((prev) => [...prev, data]);
-    });
-
-    socket.emit("join", {
-      userId: user?.id,
-      userName: user?.name,
-      auctionId: params.id,
     });
 
     socket.on("updateAuctionInfo", (data: AuctionInfo) => {
