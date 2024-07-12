@@ -1,4 +1,10 @@
-import React, { KeyboardEvent, useEffect, useRef, useState } from "react";
+import React, {
+  KeyboardEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Flex from "../components/shared/Flex";
 import Text from "../components/shared/Text";
 import LeftMessage from "../components/auction/LeftMessage";
@@ -21,7 +27,7 @@ import { IoPaperPlaneOutline } from "react-icons/io5";
 import { exitAuction } from "../apis/attendance";
 
 function Auction() {
-  const socket = io(process.env.REACT_APP_BASE_URL);
+  const socket = useMemo(() => io(process.env.REACT_APP_BASE_URL), []);
   const params: any = useParams();
   const navigate = useNavigate();
 
