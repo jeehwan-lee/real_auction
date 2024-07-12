@@ -23,17 +23,32 @@ function AuctionInfoTab({
   onClickExit,
   onClickBid,
 }: AuctionInfoProps) {
-  const { name, description, startPrice, endDate, photoUrl, attendances } =
-    auction;
+  const {
+    name,
+    description,
+    startPrice,
+    endDate,
+    photoUrl,
+    attendances,
+    maxBid,
+  } = auction;
 
   const [openDescTab, setOpenDescTab] = useState<boolean>(false);
   const [bidPrice, setBidPrice] = useState<string>("");
+
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const onClickGoOut = () => {
     onClickExit();
   };
 
   const onClickBuy = () => {
+    if (maxBid?.bidPrice && Number(maxBid?.bidPrice) > Number(bidPrice)) {
+      setErrorMessage("현재 입찰가보다 낮은 금액은 입력할 수 없습니다");
+      return;
+    }
+
+    setErrorMessage("");
     onClickBid(bidPrice);
   };
 
@@ -144,7 +159,11 @@ function AuctionInfoTab({
           <div className="h-[14px]"></div>
           <Text label="현재가격" color="black" size="base" bold={true} />
           <div className="h-[6px]"></div>
-          <Text label={`1,000,000원`} color="gray-400" size="base"></Text>
+          <Text
+            label={`${priceFormatter(maxBid?.bidPrice as string)}`}
+            color="gray-400"
+            size="base"
+          ></Text>
           <div className="h-[10px]"></div>
           <Text label="상품설명" color="black" size="base" bold={true} />
           <div className="h-[6px]"></div>
@@ -160,6 +179,15 @@ function AuctionInfoTab({
               onChange={onChange}
             />
           </Flex>
+
+          {errorMessage !== "" ? (
+            <>
+              <div className="h-[10px]"></div>
+              <Text label={errorMessage} color="red-400" size="sm" />
+            </>
+          ) : (
+            ""
+          )}
           <div className="h-[10px]"></div>
           <Button label="구매하기" onClick={() => onClickBuy()} />
         </Flex>
