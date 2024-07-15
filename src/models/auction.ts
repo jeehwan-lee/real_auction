@@ -20,6 +20,7 @@ export interface AuctionInfo {
   description: string;
   category: string;
   startPrice: string;
+  close: string;
   photoUrl: string;
   userId: number;
   bidIncrement: string;

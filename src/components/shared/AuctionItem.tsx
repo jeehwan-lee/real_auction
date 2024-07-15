@@ -29,6 +29,7 @@ function AuctionItem({ auction }: AuctionItemProps) {
     userId,
     id,
     attendances,
+    close,
   } = auction;
 
   const onClickAuctionItem = async () => {
@@ -52,7 +53,13 @@ function AuctionItem({ auction }: AuctionItemProps) {
         justify="justify-start"
         classNameProps="w-full mb-2 pl-1"
       >
-        <Tag label={category} />
+        <Tag label={category} bgColor="blue-200" />
+        {close == "Y" && (
+          <>
+            <div className="w-[6px]"></div>
+            <Tag label="종료됨" bgColor="red-200" />
+          </>
+        )}
       </Flex>
       <Flex
         direction="flex-row"
