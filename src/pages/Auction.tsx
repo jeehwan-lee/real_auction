@@ -25,11 +25,14 @@ import { getChatList } from "../apis/chat";
 import { CiPaperplane } from "react-icons/ci";
 import { IoPaperPlaneOutline } from "react-icons/io5";
 import { exitAuction } from "../apis/attendance";
+import Loading from "../components/shared/Loading";
 
 function Auction() {
   const socket = useMemo(() => io(process.env.REACT_APP_BASE_URL), []);
   const params: any = useParams();
   const navigate = useNavigate();
+
+  const loadingRef = useRef<HTMLDivElement>(null);
 
   const [user] = useRecoilState(userAtom);
 
@@ -40,6 +43,22 @@ function Auction() {
 
   const [message, setMessage] = useState<string>("");
   const [page, setPage] = useState<number>(1);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+
+  const onIntersection = async (entries: any) => {
+    if (user && entries[0].isIntersecting && hasMore) {
+      // 2. Chat Table에서 Chatting 내역 가져오기 최근 10개만
+      // 2-1. 받아서 ChatList State에 넣어두기
+      await getChatList(params.id, page, user.id).then((data) => {
+        if (data.length === 0) {
+          setHasMore(false);
+        } else {
+          setChatList([...data, ...chatList]);
+          setPage((prev) => prev + 1);
+        }
+      });
+    }
+  };
 
   const submitMessage = () => {
     if (message === "") return;
@@ -84,14 +103,6 @@ function Auction() {
     });
   };
 
-  const handleScrollTop = () => {
-    if (window.scrollY == 0) {
-      getChatList(params.id, 2, user?.id as number).then((result) => {
-        setChatList((prev) => [result, ...prev]);
-      });
-    }
-  };
-
   useEffect(() => {
     if (!user) return;
 
@@ -101,24 +112,8 @@ function Auction() {
       auctionId: params.id,
     });
 
-    // 1. AuctionId를 통해 Auction 정보 가져오기
+    // AuctionId를 통해 Auction 정보 가져오기
     getAuctionByAuctionId(params.id).then((auction) => setAuction(auction));
-
-    // 2. Chat Table에서 Chatting 내역 가져오기 최근 10개만
-    // 2-1. 받아서 ChatList State에 넣어두기
-    getChatList(params.id, page, user.id).then((result) => setChatList(result));
-
-    // 2-2. 추후에는 스크롤 시 더 위에것 가져와서 state 앞에 넣어두기
-    //window.addEventListener("scroll", handleScrollTop);
-
-    // 3. SOCKET 연결
-    // socket.on("connect", () => {
-    //   console.log("socket connected");
-    // });
-
-    // socket.on("disconnect", () => {
-    //   console.log("socket disconnected");
-    // });
 
     socket.on("message", (data: ChatInfo) => {
       // data를 받을때마다 chatList state에 넣어두기
@@ -137,6 +132,20 @@ function Auction() {
       socket.off("message");
     };
   }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(onIntersection);
+
+    if (loadingRef.current) {
+      observer.observe(loadingRef.current);
+    }
+
+    return () => {
+      if (loadingRef.current) {
+        observer.unobserve(loadingRef.current);
+      }
+    };
+  }, [page]);
 
   useEffect(() => {
     // CHAT 데이터를 서버로부터 전송받으면 스크롤을 맨 아래로 내린다.
@@ -158,6 +167,11 @@ function Auction() {
           />
         )}
         <div className="h-[70px]"></div>
+        {hasMore && (
+          <div ref={loadingRef} className="flex justify-center">
+            <Loading />
+          </div>
+        )}
         {chatList.map((chat) => {
           if (chat.messageType === "notice") {
             return <CenterMessage message={chat.message} />;
