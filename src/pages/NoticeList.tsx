@@ -10,6 +10,7 @@ import { userAtom } from "../store/atom/user";
 import { getMyNoticeList } from "../apis/notice";
 import { Link } from "react-router-dom";
 import Loading from "../components/shared/Loading";
+import NoResult from "../components/shared/NoResult";
 
 function NoticeList() {
   const loadingRef = useRef<HTMLDivElement>(null);
@@ -54,6 +55,9 @@ function NoticeList() {
           <NoticeItem notice={notice} />
         </Link>
       ))}
+      {!hasMore && myNoticeList.length === 0 && (
+        <NoResult label="조회된 공지가 없습니다" />
+      )}
       {hasMore && (
         <div ref={loadingRef} className="flex justify-center">
           <Loading />

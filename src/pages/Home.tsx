@@ -10,6 +10,7 @@ import { AuctionInfo } from "../models/auction";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Loading from "../components/shared/Loading";
+import NoResult from "../components/shared/NoResult";
 
 function Home() {
   const loadingRef = useRef<HTMLDivElement>(null);
@@ -125,6 +126,9 @@ function Home() {
             ))}
         </Flex>
       </Flex>
+      {!hasMore && auctionList.length === 0 && (
+        <NoResult label="조회된 결과가 없습니다" />
+      )}
       {hasMore && (
         <div ref={loadingRef} className="flex justify-center">
           <Loading />

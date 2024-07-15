@@ -11,6 +11,7 @@ import CategoryItem from "../components/shared/CategoryItem";
 import { FaBars } from "react-icons/fa";
 import { myAuctionCategoryList } from "../constants/category";
 import Loading from "../components/shared/Loading";
+import NoResult from "../components/shared/NoResult";
 
 function MyAuction() {
   const loadingRef = useRef<HTMLDivElement>(null);
@@ -108,6 +109,9 @@ function MyAuction() {
           <MyAuctionItem myAuction={myAuction} />
         </Link>
       ))}
+      {!hasMore && filteredMyAuctionList.length === 0 && (
+        <NoResult label="참여중인 옥션이 없습니다" />
+      )}
       {hasMore && (
         <div ref={loadingRef} className="flex justify-center">
           <Loading />
