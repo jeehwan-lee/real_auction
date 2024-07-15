@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Flex from "../shared/Flex";
 import Text from "../shared/Text";
 import { MdPeopleAlt } from "react-icons/md";
@@ -6,7 +6,11 @@ import { FaChevronRight } from "react-icons/fa6";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { AuctionInfo } from "../../models/auction";
-import { dateFormatter, priceFormatter } from "../../utils/formatter";
+import {
+  dateFormatter,
+  diffDayFormatter,
+  priceFormatter,
+} from "../../utils/formatter";
 import Input from "../shared/Input";
 import Button from "../shared/Button";
 import HorizontalBar from "../shared/HorizontalBar";
@@ -38,6 +42,7 @@ function AuctionInfoTab({
   const [bidPrice, setBidPrice] = useState<string>("");
 
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [serverTime, setServerTime] = useState<string>("");
 
   const onClickGoOut = () => {
     onClickExit();
@@ -72,6 +77,21 @@ function AuctionInfoTab({
   const onChange = (e: { target: { name: any; value: any } }) => {
     setBidPrice(e.target.value);
   };
+
+  useEffect(() => {
+    const eventSource = new EventSource(
+      process.env.REACT_APP_BASE_URL + "/auction/sse/time"
+    );
+
+    eventSource.onmessage = async (e) => {
+      const res = await e.data;
+      setServerTime(JSON.parse(res).time);
+    };
+
+    return () => {
+      eventSource.close();
+    };
+  }, []);
 
   return (
     <Flex
@@ -123,13 +143,20 @@ function AuctionInfoTab({
             color="gray-400"
             size="sm"
           ></Text>
+          <Text
+            label={`${dateFormatter(endDate)} 마감`}
+            color="gray-400"
+            size="sm"
+          ></Text>
           <div className="h-[2px]"></div>
           <Flex direction="flex-row" classNameProps="w-full">
-            <Text
-              label={`${dateFormatter(endDate)} 마감`}
-              color="gray-400"
-              size="sm"
-            ></Text>
+            {endDate != null && serverTime !== "" && (
+              <Text
+                label={`${diffDayFormatter(serverTime, endDate)} 남음`}
+                color="blue-400"
+                size="sm"
+              ></Text>
+            )}
             <Flex direction="flex-row">
               <MdPeopleAlt color="gray" />
               <div className="w-[4px]"></div>
