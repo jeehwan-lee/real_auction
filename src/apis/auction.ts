@@ -13,9 +13,11 @@ export const createAuction = async (createAuctionInfo: CreateAuctionInfo) => {
   }
 };
 
-export const getAuctionList = async () => {
+export const getAuctionList = async (searchParam: string, page: number) => {
   try {
-    const { data } = await defaultInstance.get(`/auction/list`);
+    const { data } = await defaultInstance.get(
+      `/auction/list?search=${searchParam}&page=${page}`
+    );
     return data;
   } catch (e) {
     console.log(e);

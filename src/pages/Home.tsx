@@ -1,4 +1,4 @@
-import React, { useEffect, useState, KeyboardEvent } from "react";
+import React, { useEffect, useState, KeyboardEvent, useRef } from "react";
 import Flex from "../components/shared/Flex";
 import SearchInput from "../components/shared/SearchInput";
 import { FaBars } from "react-icons/fa";
@@ -9,27 +9,64 @@ import { getAuctionList, getAuctionListBySearchParam } from "../apis/auction";
 import { AuctionInfo } from "../models/auction";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import Loading from "../components/shared/Loading";
 
 function Home() {
+  const loadingRef = useRef<HTMLDivElement>(null);
+
   const [searchParam, setSearchParam] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [auctionList, setAuctionList] = useState<AuctionInfo[]>([]);
 
-  useEffect(() => {
-    getAuctionList().then((data) => setAuctionList(data));
-  }, []);
+  const [page, setPage] = useState<number>(1);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+
+  const onIntersection = async (entries: any) => {
+    if (entries[0].isIntersecting && hasMore) {
+      getAuctionList(searchParam, page).then((data) => {
+        if (data.length === 0) {
+          setHasMore(false);
+        } else {
+          setAuctionList([...auctionList, ...data]);
+          setPage((prev) => prev + 1);
+        }
+      });
+    }
+  };
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      getAuctionListBySearchParam(searchParam).then((data) =>
-        setAuctionList(data)
-      );
+      setPage(1);
+      setAuctionList([]);
+
+      getAuctionList(searchParam, page).then((data) => {
+        if (data.length === 0) {
+          setHasMore(false);
+        } else {
+          setAuctionList([...auctionList, ...data]);
+          setPage((prev) => prev + 1);
+        }
+      });
     }
   };
 
   const onClickCategory = (value: string) => {
     setSelectedCategory(value);
   };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(onIntersection);
+
+    if (loadingRef.current) {
+      observer.observe(loadingRef.current);
+    }
+
+    return () => {
+      if (loadingRef.current) {
+        observer.unobserve(loadingRef.current);
+      }
+    };
+  }, [page]);
 
   return (
     <div>
@@ -87,6 +124,11 @@ function Home() {
               <AuctionItem auction={auction} />
             ))}
         </Flex>
+        {hasMore && (
+          <div ref={loadingRef} className="flex justify-center">
+            <Loading />
+          </div>
+        )}
       </Flex>
     </div>
   );
