@@ -56,7 +56,7 @@ function AuctionItem({ auction }: AuctionItemProps) {
         <Tag label={category} bgColor="blue-200" />
         {close == "Y" && (
           <>
-            <div className="w-[6px]"></div>
+            <div className="w-[8px]"></div>
             <Tag label="종료됨" bgColor="red-200" />
           </>
         )}
