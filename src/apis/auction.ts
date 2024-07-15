@@ -31,10 +31,10 @@ export const getAuctionListBySearchParam = async (searchParam: string) => {
   }
 };
 
-export const getMyAuctionList = async (userId: number) => {
+export const getMyAuctionList = async (userId: number, page: number) => {
   try {
     const { data } = await defaultInstance.get(
-      `/auction/list/myAuction/${userId}`
+      `/auction/list/myAuction/${userId}?page=${page}`
     );
     return data;
   } catch (e) {

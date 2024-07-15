@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import MyAuctionItem from "../components/myauction/MyAuctionItem";
 import { getMyAuctionList } from "../apis/auction";
@@ -10,8 +10,11 @@ import Flex from "../components/shared/Flex";
 import CategoryItem from "../components/shared/CategoryItem";
 import { FaBars } from "react-icons/fa";
 import { myAuctionCategoryList } from "../constants/category";
+import Loading from "../components/shared/Loading";
 
 function MyAuction() {
+  const loadingRef = useRef<HTMLDivElement>(null);
+
   const [user] = useRecoilState(userAtom);
 
   const [myAuctionList, setMyAuctionList] = useState<AuctionInfo[]>([]);
@@ -19,6 +22,9 @@ function MyAuction() {
   const [filteredMyAuctionList, setFilteredMyAuctionList] = useState<
     AuctionInfo[]
   >([]);
+
+  const [page, setPage] = useState<number>(1);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
   const onClickCategory = (value: string) => {
     setSelectedCategory(value);
@@ -41,15 +47,33 @@ function MyAuction() {
     }
   };
 
-  useEffect(() => {
-    if (!user) {
-      return;
+  const onIntersection = async (entries: any) => {
+    if (user && entries[0].isIntersecting && hasMore) {
+      getMyAuctionList(user?.id, page).then((data) => {
+        if (data.length === 0) {
+          setHasMore(false);
+        } else {
+          setMyAuctionList([...myAuctionList, ...data]);
+          setFilteredMyAuctionList([...myAuctionList, ...data]);
+          setPage((prev) => prev + 1);
+        }
+      });
     }
-    getMyAuctionList(user?.id).then((data) => {
-      setMyAuctionList(data);
-      setFilteredMyAuctionList(data);
-    });
-  }, []);
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(onIntersection);
+
+    if (loadingRef.current) {
+      observer.observe(loadingRef.current);
+    }
+
+    return () => {
+      if (loadingRef.current) {
+        observer.unobserve(loadingRef.current);
+      }
+    };
+  }, [page]);
 
   return (
     <>
@@ -84,6 +108,11 @@ function MyAuction() {
           <MyAuctionItem myAuction={myAuction} />
         </Link>
       ))}
+      {hasMore && (
+        <div ref={loadingRef} className="flex justify-center">
+          <Loading />
+        </div>
+      )}
     </>
   );
 }
