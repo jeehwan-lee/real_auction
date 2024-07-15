@@ -24,7 +24,7 @@ function Home() {
   const onIntersection = async (entries: any) => {
     if (entries[0].isIntersecting && hasMore) {
       getAuctionList(searchParam, page).then((data) => {
-        if (data.length === 0) {
+        if (!data || data.length === 0) {
           setHasMore(false);
         } else {
           setAuctionList([...auctionList, ...data]);
@@ -124,12 +124,12 @@ function Home() {
               <AuctionItem auction={auction} />
             ))}
         </Flex>
-        {hasMore && (
-          <div ref={loadingRef} className="flex justify-center">
-            <Loading />
-          </div>
-        )}
       </Flex>
+      {hasMore && (
+        <div ref={loadingRef} className="flex justify-center">
+          <Loading />
+        </div>
+      )}
     </div>
   );
 }

@@ -50,7 +50,7 @@ function MyAuction() {
   const onIntersection = async (entries: any) => {
     if (user && entries[0].isIntersecting && hasMore) {
       getMyAuctionList(user?.id, page).then((data) => {
-        if (data.length === 0) {
+        if (!data || data.length === 0) {
           setHasMore(false);
         } else {
           setMyAuctionList([...myAuctionList, ...data]);

@@ -23,7 +23,7 @@ function NoticeList() {
   const onIntersection = async (entries: any) => {
     if (user && entries[0].isIntersecting && hasMore) {
       await getMyNoticeList(user?.id, page).then((data) => {
-        if (data.length === 0) {
+        if (!data || data.length === 0) {
           setHasMore(false);
         } else {
           setMyNoticeList([...myNoticeList, ...data]);
