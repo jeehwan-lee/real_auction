@@ -15,6 +15,7 @@ import Input from "../shared/Input";
 import Button from "../shared/Button";
 import HorizontalBar from "../shared/HorizontalBar";
 import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
+import dayjs from "dayjs";
 
 interface AuctionInfoProps {
   auction: AuctionInfo;
@@ -78,6 +79,10 @@ function AuctionInfoTab({
     setBidPrice(e.target.value);
   };
 
+  const isClosed = () => {
+    return dayjs(endDate).diff(dayjs(serverTime)) < 0;
+  };
+
   useEffect(() => {
     const eventSource = new EventSource(
       process.env.REACT_APP_BASE_URL + "/auction/sse/time"
@@ -107,7 +112,6 @@ function AuctionInfoTab({
         <Link to="/myAuction">
           <Text label="목록" color="gray-400" size="sm" />
         </Link>
-
         <Flex
           direction="flex-row"
           justify="justify-end"
@@ -152,7 +156,11 @@ function AuctionInfoTab({
           <Flex direction="flex-row" classNameProps="w-full">
             {endDate != null && serverTime !== "" && (
               <Text
-                label={`${diffDayFormatter(serverTime, endDate)} 남음`}
+                label={
+                  isClosed()
+                    ? "종료되었습니다"
+                    : `${diffDayFormatter(serverTime, endDate)} 남음`
+                }
                 color="blue-400"
                 size="sm"
               ></Text>
@@ -217,27 +225,30 @@ function AuctionInfoTab({
           <div className="h-[6px]"></div>
           <Text label={description} color="gray-400" size="base"></Text>
           <div className="h-[10px]"></div>
-          <Flex direction="flex-col" className="w-full">
-            <Text label="입찰가" color="black" size="base" bold={true} />
-            <div className="h-[6px]"></div>
-            <Input
-              placeholder="입찰가를 입력하세요"
-              name="bidPrice"
-              value={bidPrice}
-              onChange={onChange}
-            />
-          </Flex>
-
-          {errorMessage !== "" ? (
+          {!isClosed() && (
             <>
+              <Flex direction="flex-col" className="w-full">
+                <Text label="입찰가" color="black" size="base" bold={true} />
+                <div className="h-[6px]"></div>
+                <Input
+                  placeholder="입찰가를 입력하세요"
+                  name="bidPrice"
+                  value={bidPrice}
+                  onChange={onChange}
+                />
+              </Flex>
+              {errorMessage !== "" ? (
+                <>
+                  <div className="h-[10px]"></div>
+                  <Text label={errorMessage} color="red-400" size="sm" />
+                </>
+              ) : (
+                ""
+              )}
               <div className="h-[10px]"></div>
-              <Text label={errorMessage} color="red-400" size="sm" />
+              <Button label="구매하기" onClick={() => onClickBuy()} />
             </>
-          ) : (
-            ""
           )}
-          <div className="h-[10px]"></div>
-          <Button label="구매하기" onClick={() => onClickBuy()} />
         </Flex>
       )}
     </Flex>
