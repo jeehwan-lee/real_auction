@@ -5,7 +5,7 @@ import { FaBars } from "react-icons/fa";
 import CategoryItem from "../components/shared/CategoryItem";
 import AuctionItem from "../components/shared/AuctionItem";
 import { categoryList } from "../constants/category";
-import { getAuctionList, getAuctionListBySearchParam } from "../apis/auction";
+import { getAuctionList } from "../apis/auction";
 import { AuctionInfo } from "../models/auction";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";

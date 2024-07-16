@@ -1,9 +1,9 @@
 import { CreateAuctionInfo } from "../models/auction";
-import { autnInstance, defaultInstance } from "../utils/instance";
+import { authInstance, defaultInstance } from "../utils/instance";
 
 export const createAuction = async (createAuctionInfo: CreateAuctionInfo) => {
   try {
-    const { data } = await defaultInstance.post(
+    const { data } = await authInstance.post(
       "/auction/create",
       createAuctionInfo
     );
@@ -18,15 +18,6 @@ export const getAuctionList = async (searchParam: string, page: number) => {
     const { data } = await defaultInstance.get(
       `/auction/list?search=${searchParam}&page=${page}`
     );
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const getAuctionListBySearchParam = async (searchParam: string) => {
-  try {
-    const { data } = await defaultInstance.get(`/auction/list/${searchParam}`);
     return data;
   } catch (e) {
     console.log(e);

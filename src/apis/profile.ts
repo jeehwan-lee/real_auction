@@ -1,9 +1,9 @@
 import { ProfileInfo } from "../models/profile";
-import { autnInstance } from "../utils/instance";
+import { authInstance } from "../utils/instance";
 
 export const updateProfile = async (profileInfo: ProfileInfo) => {
   try {
-    const { data } = await autnInstance.post("/user/update", profileInfo);
+    const { data } = await authInstance.post("/user/update", profileInfo);
     return data;
   } catch (e) {
     console.log(e);
