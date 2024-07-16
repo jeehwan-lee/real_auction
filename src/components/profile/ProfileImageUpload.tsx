@@ -1,6 +1,7 @@
 import React, {
   forwardRef,
   useImperativeHandle,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -10,6 +11,13 @@ const ProfileImageUpload = forwardRef((props: { imageUrl: string }, ref) => {
   const inputElement = useRef<HTMLInputElement>(null);
 
   const [imageFile, setImageFile] = useState<File>();
+
+  const blobImageURL = useMemo(() => {
+    if (imageFile) {
+      const url = URL.createObjectURL(imageFile);
+      return url;
+    }
+  }, [imageFile]);
 
   const fileHandler = () => {
     if (inputElement.current) {
@@ -65,7 +73,7 @@ const ProfileImageUpload = forwardRef((props: { imageUrl: string }, ref) => {
       />
       <img
         className="rounded-full w-[160px] h-[160px] hover:cursor-pointer"
-        src={imageFile ? URL.createObjectURL(imageFile) : props.imageUrl}
+        src={imageFile ? blobImageURL : props.imageUrl}
         onClick={fileHandler}
       />
     </>
