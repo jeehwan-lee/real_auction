@@ -35,7 +35,11 @@ function Profile() {
     useState<string>("닉네임 중복확인을 해주세요");
 
   useEffect(() => {
-    setExistNameCheck("닉네임 중복확인을 해주세요");
+    if (profileInfo.name === user?.name) {
+      setExistNameCheck("");
+    } else {
+      setExistNameCheck("닉네임 중복확인을 해주세요");
+    }
   }, [profileInfo.name]);
 
   const isValidProfileInfo = () => {
