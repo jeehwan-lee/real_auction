@@ -3,7 +3,7 @@ import Input from "../components/shared/Input";
 import Spacing from "../components/shared/Spacing";
 import Button from "../components/shared/Button";
 import Flex from "../components/shared/Flex";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Text from "../components/shared/Text";
 import { SignUpInfo } from "../models/signUp";
 import { useRecoilState } from "recoil";
@@ -16,6 +16,8 @@ import ProfileImageUpload from "../components/profile/ProfileImageUpload";
 
 function Profile() {
   const profileImageUploadRef = useRef<any>(null);
+
+  const navigate = useNavigate();
 
   const [user, setUser] = useRecoilState(userAtom);
 
@@ -87,7 +89,9 @@ function Profile() {
 
     const response = await updateProfile({
       ...profileInfo,
-      photoUrl: uploadedProfileFile,
+      photoUrl: uploadedProfileFile
+        ? uploadedProfileFile
+        : profileInfo.photoUrl,
     });
 
     if (!response) {
@@ -96,7 +100,13 @@ function Profile() {
     }
 
     alert("수정되었습니다. 다시 로그인해주세요.");
+
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("loggedUser");
+
     setUser(null);
+
+    navigate("/");
   };
 
   return (

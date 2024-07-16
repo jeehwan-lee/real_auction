@@ -24,8 +24,7 @@ const ProfileImageUpload = forwardRef((props: { imageUrl: string }, ref) => {
 
   const uploadImageFile = async () => {
     if (!imageFile) {
-      alert("선택된 이미지가 없습니다.");
-      return;
+      return null;
     }
 
     const name = Date.now();
