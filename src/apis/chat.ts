@@ -1,13 +1,9 @@
 import { defaultInstance } from "../utils/instance";
 
-export const getChatList = async (
-  auctionId: number,
-  page: number,
-  userId: number
-) => {
+export const getChatList = async (auctionId: number, userId: number) => {
   try {
     const { data } = await defaultInstance.get(
-      `/chat/list?id=${auctionId}&page=${page}&userId=${userId}`
+      `/chat/list?id=${auctionId}&userId=${userId}`
     );
     return data;
   } catch (e) {

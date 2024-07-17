@@ -42,23 +42,6 @@ function Auction() {
   const [chatList, setChatList] = useState<ChatInfo[]>([]);
 
   const [message, setMessage] = useState<string>("");
-  const [page, setPage] = useState<number>(1);
-  const [hasMore, setHasMore] = useState<boolean>(true);
-
-  const onIntersection = async (entries: any) => {
-    if (user && entries[0].isIntersecting && hasMore) {
-      // 2. Chat Table에서 Chatting 내역 가져오기 최근 10개만
-      // 2-1. 받아서 ChatList State에 넣어두기
-      await getChatList(params.id, page, user.id).then((data) => {
-        if (data.length === 0) {
-          setHasMore(false);
-        } else {
-          setChatList([...data, ...chatList]);
-          setPage((prev) => prev + 1);
-        }
-      });
-    }
-  };
 
   const submitMessage = () => {
     if (message === "") return;
@@ -115,6 +98,9 @@ function Auction() {
     // AuctionId를 통해 Auction 정보 가져오기
     getAuctionByAuctionId(params.id).then((auction) => setAuction(auction));
 
+    // Chatting Data 가져오기
+    getChatList(params.id, user.id).then((data) => setChatList(data));
+
     socket.on("message", (data: ChatInfo) => {
       // data를 받을때마다 chatList state에 넣어두기
       setChatList((prev) => [...prev, data]);
@@ -132,20 +118,6 @@ function Auction() {
       socket.off("message");
     };
   }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(onIntersection);
-
-    if (loadingRef.current) {
-      observer.observe(loadingRef.current);
-    }
-
-    return () => {
-      if (loadingRef.current) {
-        observer.unobserve(loadingRef.current);
-      }
-    };
-  }, [page]);
 
   useEffect(() => {
     // CHAT 데이터를 서버로부터 전송받으면 스크롤을 맨 아래로 내린다.
@@ -167,11 +139,6 @@ function Auction() {
           />
         )}
         <div className="h-[70px]"></div>
-        {hasMore && (
-          <div ref={loadingRef} className="flex justify-center">
-            <Loading />
-          </div>
-        )}
         {chatList.map((chat) => {
           if (chat.messageType === "notice") {
             return <CenterMessage message={chat.message} />;
