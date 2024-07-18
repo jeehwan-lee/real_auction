@@ -77,27 +77,27 @@ function AuctionItem({ auction }: AuctionItemProps) {
           align="items-start"
           classNameProps="w-full"
         >
-          <Text label={name} color="black" size="base"></Text>
+          <Text label={name} color="text-black" size="text-base"></Text>
           <div className="h-[2px]"></div>
           <Text
             label={`시작가 ${priceFormatter(startPrice)}원`}
-            color="gray-400"
-            size="sm"
+            color="text-gray-400"
+            size="text-sm"
           ></Text>
           <div className="h-[2px]"></div>
           <Flex direction="flex-row" classNameProps="w-full">
             <Text
               label={`${dateFormatter(endDate)} 마감`}
-              color="gray-400"
-              size="sm"
+              color="text-gray-400"
+              size="text-sm"
             ></Text>
             <Flex direction="flex-row">
               <MdPeopleAlt color="gray" />
               <div className="w-[4px]"></div>
               <Text
                 label={attendances.length.toString()}
-                color="gray-400"
-                size="sm"
+                color="text-gray-400"
+                size="text-sm"
               ></Text>
             </Flex>
           </Flex>
@@ -105,7 +105,7 @@ function AuctionItem({ auction }: AuctionItemProps) {
         </Flex>
       </Flex>
       <Flex direction="flex-row" justify="justify-end" classNameProps="w-full">
-        <Text label="참여하기 " color="gray-400" size="sm"></Text>
+        <Text label="참여하기 " color="text-gray-400" size="text-sm"></Text>
         <div className="w-[4px]"></div>
         <FaChevronRight color="gray" size={10} />
       </Flex>

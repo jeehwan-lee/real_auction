@@ -13,7 +13,7 @@ function CenterMessage({ message }: CenterMessageProps) {
       justify="justify-center"
       classNameProps="w-full relative mb-6"
     >
-      <Text label={message} color="gray-500" size="base" />
+      <Text label={message} color="text-gray-500" size="text-base" />
     </Flex>
   );
 }

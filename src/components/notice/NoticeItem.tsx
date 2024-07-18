@@ -43,14 +43,19 @@ function NoticeItem({ notice }: NoticeItemProps) {
             align="items-start"
             classNameProps="w-full"
           >
-            <Text label={name} color="black" size="sm" bold={true}></Text>
+            <Text
+              label={name}
+              color="text-black"
+              size="text-sm"
+              bold={true}
+            ></Text>
             <div className="h-[2px]"></div>
-            <Text label={description} color="black" size="sm"></Text>
+            <Text label={description} color="text-black" size="text-sm"></Text>
             <div className="h-[2px]"></div>
             <Text
               label={dayjs(createdDt).fromNow()}
-              color="gray-400"
-              size="sm"
+              color="text-gray-400"
+              size="text-sm"
             ></Text>
             <div className="h-[2px]"></div>
           </Flex>

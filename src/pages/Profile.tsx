@@ -122,10 +122,10 @@ function Profile() {
           ref={profileImageUploadRef}
         />
         <div className="h-[10px]"></div>
-        <Text label={profileInfo.email} color="black" size="lg" />
+        <Text label={profileInfo.email} color="text-black" size="text-lg" />
       </Flex>
       <div className="h-[16px]"></div>
-      <Text label="닉네임" color="black" size="lg" />
+      <Text label="닉네임" color="text-black" size="text-lg" />
       <div className="h-[10px]"></div>
       <Flex className="relative" direction="flex-row">
         <Input
@@ -139,7 +139,7 @@ function Profile() {
         </div>
       </Flex>
       <div className="h-[24px]"></div>
-      <Text label="비밀번호 수정" color="black" size="lg" />
+      <Text label="비밀번호 수정" color="text-black" size="text-lg" />
       <div className="h-[10px]"></div>
       <Input
         placeholder="비밀번호 (문자, 숫자, 특수문자 포함 8~20자리)"
@@ -149,7 +149,7 @@ function Profile() {
         onChange={onChange}
       />
       <div className="h-[24px]"></div>
-      <Text label="비밀번호 재입력" color="black" size="lg" />
+      <Text label="비밀번호 재입력" color="text-black" size="text-lg" />
       <div className="h-[10px]"></div>
       <Input
         placeholder="비밀번호를 재입력하세요"
@@ -161,7 +161,7 @@ function Profile() {
       <div className="h-[24px]"></div>
       {errorMessage !== "" ? (
         <>
-          <Text label={errorMessage} color="red-400" size="sm" />
+          <Text label={errorMessage} color="text-red-400" size="text-sm" />
           <div className="h-[10px]"></div>
         </>
       ) : (

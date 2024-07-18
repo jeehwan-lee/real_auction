@@ -108,7 +108,7 @@ function Register() {
       <AuctionImageUpload ref={profileImageUploadRef} />
       <div className="h-[16px]"></div>
       <Flex direction="flex-col" className="w-full">
-        <Text label="제목" color="black" size="lg" />
+        <Text label="제목" color="text-black" size="text-lg" />
         <div className="h-[6px]"></div>
         <Input
           placeholder="제목을 입력하세요"
@@ -119,7 +119,7 @@ function Register() {
       </Flex>
       <div className="h-[16px]"></div>
       <Flex direction="flex-col" className="w-full">
-        <Text label="시작가격" color="black" size="lg" />
+        <Text label="시작가격" color="text-black" size="text-lg" />
         <div className="h-[6px]"></div>
         <Input
           placeholder="시작가격을 입력하세요"
@@ -130,7 +130,7 @@ function Register() {
       </Flex>
       <div className="h-[16px]"></div>
       <Flex direction="flex-col" className="w-full">
-        <Text label="최소입찰단위" color="black" size="lg" />
+        <Text label="최소입찰단위" color="text-black" size="text-lg" />
         <div className="h-[6px]"></div>
         <Input
           placeholder="최소입찰단위을 입력하세요"
@@ -141,7 +141,7 @@ function Register() {
       </Flex>
       <div className="h-[16px]"></div>
       <Flex direction="flex-col" className="w-full">
-        <Text label="카테고리" color="black" size="lg" />
+        <Text label="카테고리" color="text-black" size="text-lg" />
         <div className="h-[6px]"></div>
         <select
           name="category"
@@ -156,7 +156,7 @@ function Register() {
       </Flex>
       <div className="h-[16px]"></div>
       <Flex direction="flex-col" className="w-full">
-        <Text label="마감일시" color="black" size="lg" />
+        <Text label="마감일시" color="text-black" size="text-lg" />
         <div className="h-[6px]"></div>
         <input
           type="datetime-local"
@@ -168,7 +168,7 @@ function Register() {
       </Flex>
       <div className="h-[16px]"></div>
       <Flex direction="flex-col" className="w-full">
-        <Text label="상세내용" color="black" size="lg" />
+        <Text label="상세내용" color="text-black" size="text-lg" />
         <div className="h-[6px]"></div>
         <TextArea
           placeholder="상세내용을 작성해주세요"
@@ -180,7 +180,7 @@ function Register() {
       <div className="h-[16px]"></div>
       {errorMessage !== "" ? (
         <>
-          <Text label={errorMessage} color="red-400" size="sm" />
+          <Text label={errorMessage} color="text-red-400" size="text-sm" />
           <div className="h-[10px]"></div>
         </>
       ) : (

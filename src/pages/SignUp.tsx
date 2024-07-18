@@ -123,9 +123,9 @@ function SignIn() {
 
   return (
     <div className="my-auto">
-      <Text label="회원가입" color="black" size="xl" bold={true} />
+      <Text label="회원가입" color="text-black" size="text-xl" bold={true} />
       <div className="h-[24px]"></div>
-      <Text label="이메일" color="black" size="lg" />
+      <Text label="이메일" color="text-black" size="text-lg" />
       <div className="h-[10px]"></div>
       <Flex className="relative" direction="flex-row">
         <Input
@@ -139,7 +139,7 @@ function SignIn() {
         </div>
       </Flex>
       <div className="h-[24px]"></div>
-      <Text label="비밀번호" color="black" size="lg" />
+      <Text label="비밀번호" color="text-black" size="text-lg" />
       <div className="h-[10px]"></div>
       <Input
         placeholder="비밀번호 (문자, 숫자, 특수문자 포함 8~20자리)"
@@ -149,7 +149,7 @@ function SignIn() {
         onChange={onChange}
       />
       <div className="h-[24px]"></div>
-      <Text label="비밀번호 확인" color="black" size="lg" />
+      <Text label="비밀번호 확인" color="text-black" size="text-lg" />
       <div className="h-[10px]"></div>
       <Input
         placeholder="비밀번호를 재입력하세요"
@@ -159,7 +159,7 @@ function SignIn() {
         onChange={onChange}
       />
       <div className="h-[24px]"></div>
-      <Text label="닉네임" color="black" size="lg" />
+      <Text label="닉네임" color="text-black" size="text-lg" />
       <div className="h-[10px]"></div>
       <Flex className="relative" direction="flex-row">
         <Input
@@ -175,7 +175,7 @@ function SignIn() {
       <div className="h-[24px]"></div>
       {errorMessage !== "" ? (
         <>
-          <Text label={errorMessage} color="red-400" size="sm" />
+          <Text label={errorMessage} color="text-red-400" size="text-sm" />
           <div className="h-[10px]"></div>
         </>
       ) : (
@@ -184,9 +184,13 @@ function SignIn() {
       <Button label="회원가입" onClick={() => onSubmit()} />
       <div className="h-[10px]"></div>
       <Flex direction="flex-row">
-        <Text label="기존에 계정이 있으신가요?" color="gray-400" size="base" />
+        <Text
+          label="기존에 계정이 있으신가요?"
+          color="text-gray-400"
+          size="text-base"
+        />
         <Link to="/login">
-          <Text label="로그인" color="gray-600" size="base" />
+          <Text label="로그인" color="text-gray-600" size="text-base" />
         </Link>
       </Flex>
     </div>

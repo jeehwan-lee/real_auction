@@ -110,7 +110,7 @@ function AuctionInfoTab({
         classNameProps="w-full"
       >
         <Link to="/myAuction">
-          <Text label="목록" color="gray-400" size="sm" />
+          <Text label="목록" color="text-gray-400" size="text-sm" />
         </Link>
         <Flex
           direction="flex-row"
@@ -118,7 +118,7 @@ function AuctionInfoTab({
           classNameProps="w-fit hover:cursor-pointer"
           onClick={onClickGoOut}
         >
-          <Text label="나가기" color="gray-400" size="sm"></Text>
+          <Text label="나가기" color="text-gray-400" size="text-sm"></Text>
           <div className="w-[4px]"></div>
           <FaChevronRight color="gray" size={10} />
         </Flex>
@@ -140,17 +140,17 @@ function AuctionInfoTab({
           align="items-start"
           classNameProps="w-full"
         >
-          <Text label={name} color="black" size="base"></Text>
+          <Text label={name} color="text-black" size="text-base"></Text>
           <div className="h-[2px]"></div>
           <Text
             label={`시작가 ${priceFormatter(startPrice)}원`}
-            color="gray-400"
-            size="sm"
+            color="text-gray-400"
+            size="text-sm"
           ></Text>
           <Text
             label={`${dateFormatter(endDate)} 마감`}
-            color="gray-400"
-            size="sm"
+            color="text-gray-400"
+            size="text-sm"
           ></Text>
           <div className="h-[2px]"></div>
           <Flex direction="flex-row" classNameProps="w-full">
@@ -161,8 +161,8 @@ function AuctionInfoTab({
                     ? "종료되었습니다"
                     : `${diffDayFormatter(serverTime, endDate)} 남음`
                 }
-                color="blue-400"
-                size="sm"
+                color="text-blue-400"
+                size="text-sm"
               ></Text>
             )}
             <Flex direction="flex-row">
@@ -170,8 +170,8 @@ function AuctionInfoTab({
               <div className="w-[4px]"></div>
               <Text
                 label={attendances.length.toString()}
-                color="gray-400"
-                size="sm"
+                color="text-gray-400"
+                size="text-sm"
               ></Text>
             </Flex>
           </Flex>
@@ -186,7 +186,7 @@ function AuctionInfoTab({
           classNameProps="w-fit hover:cursor-pointer"
           onClick={onClickShowDesc}
         >
-          <Text label="상세보기" color="gray-400" size="sm"></Text>
+          <Text label="상세보기" color="text-gray-400" size="text-sm"></Text>
           {openDescTab ? (
             <MdArrowDropUp color="gray" size={18} />
           ) : (
@@ -205,30 +205,54 @@ function AuctionInfoTab({
           <div className="h-[6px]"></div>
           <HorizontalBar />
           <div className="h-[14px]"></div>
-          <Text label="현재가격" color="black" size="base" bold={true} />
+          <Text
+            label="현재가격"
+            color="text-black"
+            size="text-base"
+            bold={true}
+          />
           <div className="h-[6px]"></div>
           <Text
             label={`${priceFormatter(maxBid ? maxBid?.bidPrice : "0")} 원`}
-            color="gray-400"
-            size="base"
+            color="text-gray-400"
+            size="text-base"
           ></Text>
           <div className="h-[10px]"></div>
-          <Text label="최소입찰단위" color="black" size="base" bold={true} />
+          <Text
+            label="최소입찰단위"
+            color="text-black"
+            size="text-base"
+            bold={true}
+          />
           <div className="h-[6px]"></div>
           <Text
             label={`${priceFormatter(bidIncrement)} 원`}
-            color="gray-400"
-            size="base"
+            color="text-gray-400"
+            size="text-base"
           ></Text>
           <div className="h-[10px]"></div>
-          <Text label="상품설명" color="black" size="base" bold={true} />
+          <Text
+            label="상품설명"
+            color="text-black"
+            size="text-base"
+            bold={true}
+          />
           <div className="h-[6px]"></div>
-          <Text label={description} color="gray-400" size="base"></Text>
+          <Text
+            label={description}
+            color="text-gray-400"
+            size="text-base"
+          ></Text>
           <div className="h-[10px]"></div>
           {!isClosed() && (
             <>
               <Flex direction="flex-col" className="w-full">
-                <Text label="입찰가" color="black" size="base" bold={true} />
+                <Text
+                  label="입찰가"
+                  color="text-black"
+                  size="text-base"
+                  bold={true}
+                />
                 <div className="h-[6px]"></div>
                 <Input
                   placeholder="입찰가를 입력하세요"
@@ -240,7 +264,11 @@ function AuctionInfoTab({
               {errorMessage !== "" ? (
                 <>
                   <div className="h-[10px]"></div>
-                  <Text label={errorMessage} color="red-400" size="sm" />
+                  <Text
+                    label={errorMessage}
+                    color="text-red-400"
+                    size="text-sm"
+                  />
                 </>
               ) : (
                 ""

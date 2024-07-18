@@ -33,9 +33,18 @@ function LeftMessage({ chat }: LeftMessageProps) {
           justify="justify-start"
           classNameProps="w-full"
         >
-          <Text label={user.name} color="black" size="base" bold={true} />
+          <Text
+            label={user.name}
+            color="text-black"
+            size="text-base"
+            bold={true}
+          />
           <div className="w-[10px]"></div>
-          <Text label={dateFormatter(createdDt)} color="gray-500" size="sm" />
+          <Text
+            label={dateFormatter(createdDt)}
+            color="text-gray-500"
+            size="text-sm"
+          />
         </Flex>
         <div className="h-[4px]"></div>
         <Flex
@@ -43,7 +52,7 @@ function LeftMessage({ chat }: LeftMessageProps) {
           justify="justify-start"
           classNameProps="w-fit max-w-64 bg-white py-2 px-4 rounded-lg"
         >
-          <Text label={message} color="black" size="base" />
+          <Text label={message} color="text-black" size="text-base" />
         </Flex>
       </Flex>
     </Flex>

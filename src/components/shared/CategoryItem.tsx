@@ -24,7 +24,7 @@ function CategoryItem({ label, selected, children }: CategoryItemProps) {
           <div className="w-[4px]"></div>
         </>
       )}
-      <Text label={label} color="gray-400" size="sm" />
+      <Text label={label} color="text-gray-400" size="text-sm" />
     </Flex>
   );
 }

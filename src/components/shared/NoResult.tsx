@@ -13,7 +13,7 @@ function NoResult({ label }: NoResultProps) {
       <div className="h-[30px]"></div>
       <AiOutlineExclamationCircle size={40} color="gray" />
       <div className="h-[16px]"></div>
-      <Text label={label} color="gray-500" size="lg" />
+      <Text label={label} color="text-gray-500" size="text-lg" />
     </Flex>
   );
 }

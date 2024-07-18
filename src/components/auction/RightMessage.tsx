@@ -28,7 +28,11 @@ function RightMessage({ chat }: RightMessageProps) {
           justify="justify-start"
           classNameProps="w-full"
         >
-          <Text label={dateFormatter(createdDt)} color="gray-500" size="sm" />
+          <Text
+            label={dateFormatter(createdDt)}
+            color="text-gray-500"
+            size="text-sm"
+          />
         </Flex>
         <div className="h-[4px]"></div>
         <Flex
@@ -36,7 +40,7 @@ function RightMessage({ chat }: RightMessageProps) {
           justify="justify-start"
           classNameProps="w-fit max-w-64 bg-yellow-100 py-2 px-4 rounded-lg"
         >
-          <Text label={message} color="black" size="base" />
+          <Text label={message} color="text-black" size="text-base" />
         </Flex>
       </Flex>
     </Flex>

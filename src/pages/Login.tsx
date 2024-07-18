@@ -53,7 +53,7 @@ function Login() {
 
   return (
     <div className="my-auto">
-      <Text label="로그인" color="black" size="xl" bold={true} />
+      <Text label="로그인" color="text-black" size="text-xl" bold={true} />
       <div className="h-[24px]"></div>
       <Input
         placeholder="이메일"
@@ -75,9 +75,13 @@ function Login() {
       <Button label="로그인" onClick={() => onSubmit()} />
       <div className="h-[10px]"></div>
       <Flex direction="flex-row">
-        <Text label="아직 계정이 없으신가요?" color="gray-400" size="base" />
+        <Text
+          label="아직 계정이 없으신가요?"
+          color="text-gray-400"
+          size="text-base"
+        />
         <Link to="/signUp">
-          <Text label="회원가입" color="gray-600" size="base" />
+          <Text label="회원가입" color="text-gray-600" size="text-base" />
         </Link>
       </Flex>
     </div>
