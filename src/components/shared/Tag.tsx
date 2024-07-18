@@ -12,7 +12,7 @@ function Tag({ label, bgColor }: TagProps) {
     <Flex
       direction="flex-row"
       justify="justify-center"
-      classNameProps={`px-2 bg-${bgColor} h-[30px] rounded-lg`}
+      classNameProps={`px-2 ${bgColor} h-[30px] rounded-lg`}
     >
       <Text label={label} color="text-gray-400" size="text-sm" />
     </Flex>

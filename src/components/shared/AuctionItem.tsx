@@ -53,11 +53,11 @@ function AuctionItem({ auction }: AuctionItemProps) {
         justify="justify-start"
         classNameProps="w-full mb-2 pl-1"
       >
-        <Tag label={category} bgColor="blue-200" />
+        <Tag label={category} bgColor="bg-blue-200" />
         {close == "Y" && (
           <>
             <div className="w-[8px]"></div>
-            <Tag label="종료됨" bgColor="red-200" />
+            <Tag label="종료됨" bgColor="bg-red-200" />
           </>
         )}
       </Flex>
