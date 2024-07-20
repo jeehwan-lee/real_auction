@@ -126,9 +126,13 @@ function Home() {
             ))}
         </Flex>
       </Flex>
-      {!hasMore && auctionList.length === 0 && (
-        <NoResult label="조회된 결과가 없습니다" />
-      )}
+      {!hasMore &&
+        auctionList?.filter((data) => {
+          if (selectedCategory !== "") {
+            return data.category === selectedCategory;
+          }
+          return data;
+        }).length === 0 && <NoResult label="조회된 결과가 없습니다" />}
       {hasMore && (
         <div ref={loadingRef} className="flex justify-center">
           <Loading />
