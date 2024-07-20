@@ -8,9 +8,9 @@ interface ParagraphTextProps {
 }
 function ParagraphText({ label, color, size, bold }: ParagraphTextProps) {
   return (
-    <div className={`${size} ${color} ${bold === true ? "font-bold" : ""}`}>
+    <pre className={`${size} ${color} ${bold === true ? "font-bold" : ""}`}>
       {label}
-    </div>
+    </pre>
   );
 }
 
