@@ -16,6 +16,7 @@ import Button from "../shared/Button";
 import HorizontalBar from "../shared/HorizontalBar";
 import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 import dayjs from "dayjs";
+import ParagraphText from "../shared/ParagraphText";
 
 interface AuctionInfoProps {
   auction: AuctionInfo;
@@ -231,7 +232,7 @@ function AuctionInfoTab({
             size="text-base"
           ></Text>
           <div className="h-[10px]"></div>
-          <Text
+          <ParagraphText
             label="상품설명"
             color="text-black"
             size="text-base"
