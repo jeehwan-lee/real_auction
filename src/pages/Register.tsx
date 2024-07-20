@@ -62,6 +62,10 @@ function Register() {
       return "상세내용을 입력해주세요.";
     }
 
+    if (auctionInfo.description.length > 200) {
+      return "상세내용은 200 글자까지 입력할 수 있습니다.";
+    }
+
     return "";
   };
 
