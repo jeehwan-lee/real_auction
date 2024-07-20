@@ -232,18 +232,18 @@ function AuctionInfoTab({
             size="text-base"
           ></Text>
           <div className="h-[10px]"></div>
-          <ParagraphText
+          <Text
             label="상품설명"
             color="text-black"
             size="text-base"
             bold={true}
           />
           <div className="h-[6px]"></div>
-          <Text
+          <ParagraphText
             label={description}
             color="text-gray-400"
             size="text-base"
-          ></Text>
+          ></ParagraphText>
           <div className="h-[10px]"></div>
           {!isClosed() && (
             <>
