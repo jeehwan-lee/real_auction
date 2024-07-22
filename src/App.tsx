@@ -20,9 +20,11 @@ import MessageInput from "./components/auction/MessageInput";
 import Flex from "./components/shared/Flex";
 import Loading from "./components/shared/Loading";
 import Dimmed from "./components/shared/Dimmed";
+import { dimmedAtom } from "./store/atom/dimmed";
 
 function App() {
   const [user, setUser] = useRecoilState(userAtom);
+  const [isDimmed] = useRecoilState(dimmedAtom);
 
   const loggedUser = localStorage.getItem("loggedUser");
 
@@ -77,9 +79,11 @@ function App() {
         </main>
         <BottomTab />
       </BrowserRouter>
-      <Dimmed>
-        <Loading />
-      </Dimmed>
+      {isDimmed && (
+        <Dimmed>
+          <Loading />
+        </Dimmed>
+      )}
     </div>
   );
 }

@@ -13,6 +13,7 @@ import { checkUserNameExist } from "../apis/signUp";
 import { updateProfile } from "../apis/profile";
 import { expName, expPassword } from "../constants/regexp";
 import ProfileImageUpload from "../components/profile/ProfileImageUpload";
+import { dimmedAtom } from "../store/atom/dimmed";
 
 function Profile() {
   const profileImageUploadRef = useRef<any>(null);
@@ -20,6 +21,7 @@ function Profile() {
   const navigate = useNavigate();
 
   const [user, setUser] = useRecoilState(userAtom);
+  const [isDimmed, setIsDimmed] = useRecoilState(dimmedAtom);
 
   const [profileInfo, setProfileInfo] = useState<ProfileInfo>({
     email: user?.email || "",
@@ -88,6 +90,8 @@ function Profile() {
       return;
     }
 
+    setIsDimmed(true);
+
     const uploadedProfileFile =
       await profileImageUploadRef?.current?.uploadImageFile();
 
@@ -97,6 +101,8 @@ function Profile() {
         ? uploadedProfileFile
         : profileInfo.photoUrl,
     });
+
+    setIsDimmed(false);
 
     if (!response) {
       alert("프로필 수정에서 에러가 발생했습니다.");

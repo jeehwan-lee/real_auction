@@ -6,7 +6,7 @@ interface DimmedProps {
 
 function Dimmed({ children }: DimmedProps) {
   return (
-    <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center z-50 bg-black bg-opacity-50">
+    <div className="fixed top-0 w-full max-w-[430px] h-full flex justify-center items-center z-50 bg-black bg-opacity-50">
       {children}
     </div>
   );

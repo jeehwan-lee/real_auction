@@ -13,12 +13,14 @@ import { userAtom } from "../store/atom/user";
 import { expNumber } from "../constants/regexp";
 import dayjs from "dayjs";
 import { categoryList } from "../constants/category";
+import { dimmedAtom } from "../store/atom/dimmed";
 
 function Register() {
   const navigate = useNavigate();
   const profileImageUploadRef = useRef<any>(null);
 
   const [user] = useRecoilState(userAtom);
+  const [isDimmed, setIsDimmed] = useRecoilState(dimmedAtom);
 
   const [auctionInfo, setAuctionInfo] = useState<CreateAuctionInfo>({
     name: "",
@@ -87,6 +89,8 @@ function Register() {
       return;
     }
 
+    setIsDimmed(true);
+
     const uploadedProfileFile =
       await profileImageUploadRef?.current?.uploadImageFile();
 
@@ -98,6 +102,8 @@ function Register() {
       ...auctionInfo,
       photoUrl: uploadedProfileFile,
     });
+
+    setIsDimmed(false);
 
     if (!response) {
       alert("옥션 등록과정에서 에러가 발생했습니다.");
