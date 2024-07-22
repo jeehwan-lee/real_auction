@@ -19,6 +19,7 @@ import { User } from "./models/user";
 import MessageInput from "./components/auction/MessageInput";
 import Flex from "./components/shared/Flex";
 import Loading from "./components/shared/Loading";
+import Dimmed from "./components/shared/Dimmed";
 
 function App() {
   const [user, setUser] = useRecoilState(userAtom);
@@ -74,9 +75,11 @@ function App() {
             <Route path="/signUp" element={<SignUp />} />
           </Routes>
         </main>
-
         <BottomTab />
       </BrowserRouter>
+      <Dimmed>
+        <Loading />
+      </Dimmed>
     </div>
   );
 }
