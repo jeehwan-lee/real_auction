@@ -18,6 +18,7 @@ import { userAtom } from "./store/atom/user";
 import { User } from "./models/user";
 import MessageInput from "./components/auction/MessageInput";
 import Flex from "./components/shared/Flex";
+import Loading from "./components/shared/Loading";
 
 function App() {
   const [user, setUser] = useRecoilState(userAtom);
