@@ -48,6 +48,14 @@ const authAPI = (url: string, options?: any) => {
 
           return axios(originalRequest);
         } catch (refreshError) {
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
+          localStorage.removeItem("loggedUser");
+
+          alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+
+          window.location.href = "/login";
+
           return Promise.reject(refreshError);
         }
       }

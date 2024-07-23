@@ -12,6 +12,11 @@ import { userAtom } from "../store/atom/user";
 
 function Login() {
   const setUser = useSetRecoilState(userAtom);
+  const loggedUser = localStorage.getItem("loggedUser");
+
+  if (!loggedUser) {
+    setUser(null);
+  }
 
   const navigate = useNavigate();
 
