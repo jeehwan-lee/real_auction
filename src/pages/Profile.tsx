@@ -112,6 +112,7 @@ function Profile() {
     alert("수정되었습니다. 다시 로그인해주세요.");
 
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     localStorage.removeItem("loggedUser");
 
     setUser(null);

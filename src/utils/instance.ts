@@ -9,14 +9,49 @@ const authAPI = (url: string, options?: any) => {
 
   instance.interceptors.request.use(
     (config) => {
-      const token = localStorage.getItem("accessToken");
+      const accessToken = localStorage.getItem("accessToken");
 
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
       }
       return config;
     },
     (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  instance.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    async (error) => {
+      const originalRequest = error.config;
+      const refreshToken = localStorage.getItem("refreshToken");
+      const loggedUser = localStorage.getItem("loggedUser");
+
+      if (error.response.status === 401 && refreshToken && loggedUser) {
+        try {
+          const response = await axios.post(
+            process.env.REACT_APP_BASE_URL + "/auth/accesstoken",
+            {
+              refreshToken: refreshToken,
+              user: JSON.parse(loggedUser),
+            }
+          );
+
+          const newAccessToken = response.data.accessToken;
+
+          localStorage.setItem("accessToken", newAccessToken);
+          axios.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+
+          return axios(originalRequest);
+        } catch (refreshError) {
+          return Promise.reject(refreshError);
+        }
+      }
+
       return Promise.reject(error);
     }
   );
