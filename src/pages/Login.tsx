@@ -40,7 +40,9 @@ function Login() {
         photoUrl: response.photoUrl,
       };
 
-      localStorage.setItem("accessToken", response.token);
+      localStorage.setItem("accessToken", response.accessToken);
+      localStorage.setItem("refreshToken", response.refreshToken);
+
       localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
 
       setUser(loggedUser);
