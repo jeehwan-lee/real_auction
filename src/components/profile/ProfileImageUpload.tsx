@@ -6,6 +6,7 @@ import React, {
   useState,
 } from "react";
 import AWS from "aws-sdk";
+import Resizer from "react-image-file-resizer";
 
 const ProfileImageUpload = forwardRef((props: { imageUrl: string }, ref) => {
   const inputElement = useRef<HTMLInputElement>(null);
@@ -30,10 +31,28 @@ const ProfileImageUpload = forwardRef((props: { imageUrl: string }, ref) => {
     setImageFile(file);
   };
 
+  const resizeFile = (file: File) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        180,
+        180,
+        "JPEG",
+        100,
+        0,
+        (uri: any) => {
+          resolve(uri);
+        },
+        "file"
+      );
+    });
+
   const uploadImageFile = async () => {
     if (!imageFile) {
       return null;
     }
+
+    const resizedImageFile = await resizeFile(imageFile);
 
     const name = Date.now();
 
@@ -48,7 +67,7 @@ const ProfileImageUpload = forwardRef((props: { imageUrl: string }, ref) => {
         ACL: "public-read",
         Bucket: process.env.REACT_APP_AWS_NAME,
         Key: `image/profile/${name}`,
-        Body: imageFile,
+        Body: resizedImageFile as File,
       },
     });
 
