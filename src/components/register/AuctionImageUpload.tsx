@@ -8,6 +8,7 @@ import React, {
 import AWS from "aws-sdk";
 import { FaRegImages } from "react-icons/fa";
 import Flex from "../shared/Flex";
+import Resizer from "react-image-file-resizer";
 
 const AuctionImageUpload = forwardRef((props, ref) => {
   const inputElement = useRef<HTMLInputElement>(null);
@@ -32,11 +33,29 @@ const AuctionImageUpload = forwardRef((props, ref) => {
     setImageFile(file);
   };
 
+  const resizeFile = (file: File) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        180,
+        180,
+        "JPEG",
+        100,
+        0,
+        (uri: any) => {
+          resolve(uri);
+        },
+        "file"
+      );
+    });
+
   const uploadImageFile = async () => {
     if (!imageFile) {
       alert("선택된 이미지가 없습니다.");
       return;
     }
+
+    const resizedImageFile = await resizeFile(imageFile);
 
     const name = Date.now();
 
@@ -51,7 +70,7 @@ const AuctionImageUpload = forwardRef((props, ref) => {
         ACL: "public-read",
         Bucket: process.env.REACT_APP_AWS_NAME,
         Key: `image/auction/${name}`,
-        Body: imageFile,
+        Body: resizedImageFile as File,
       },
     });
 
