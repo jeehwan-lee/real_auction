@@ -11,8 +11,8 @@ import Flex from "./components/shared/Flex";
 import Loading from "./components/shared/Loading";
 import Dimmed from "./components/shared/Dimmed";
 import { dimmedAtom } from "./store/atom/dimmed";
+import Home from "./pages/Home";
 
-const Home = lazy(() => import("./pages/Home"));
 const Register = lazy(() => import("./pages/Register"));
 const NoticeList = lazy(() => import("./pages/NoticeList"));
 const Profile = lazy(() => import("./pages/Profile"));
