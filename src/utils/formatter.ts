@@ -14,6 +14,9 @@ export const dateFormatter = (date: string) => {
   const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
   const parsedDate = dayjs(date).tz("Asia/Seoul");
 
+  console.log(date);
+  console.log(parsedDate);
+
   const dayOfWeek = weekdays[dayjs(parsedDate).day()];
 
   const formattedEndDate = `${dayjs(parsedDate).format(
