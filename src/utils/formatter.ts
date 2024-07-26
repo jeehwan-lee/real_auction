@@ -1,4 +1,9 @@
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export const priceFormatter = (price: string) => {
   let formattedPrice = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -7,11 +12,13 @@ export const priceFormatter = (price: string) => {
 
 export const dateFormatter = (date: string) => {
   const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
-  const dayOfWeek = weekdays[dayjs(date).day()];
+  const parsedDate = dayjs(date).tz("Asia/Seoul");
 
-  const formattedEndDate = `${dayjs(date).format(
+  const dayOfWeek = weekdays[dayjs(parsedDate).day()];
+
+  const formattedEndDate = `${dayjs(parsedDate).format(
     "YY.MM.DD."
-  )}(${dayOfWeek}) ${dayjs(date).format("HH:mm")}`;
+  )}(${dayOfWeek}) ${dayjs(parsedDate).format("HH:mm")}`;
 
   return formattedEndDate;
 };
