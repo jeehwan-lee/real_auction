@@ -3,7 +3,6 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 
 dayjs.extend(utc);
-dayjs.extend(timezone);
 
 export const priceFormatter = (price: string) => {
   let formattedPrice = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -12,10 +11,7 @@ export const priceFormatter = (price: string) => {
 
 export const dateFormatter = (date: string) => {
   const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
-  const parsedDate = dayjs(date).tz("Asia/Seoul");
-
-  console.log(date);
-  console.log(parsedDate);
+  const parsedDate = dayjs.utc(date);
 
   const dayOfWeek = weekdays[dayjs(parsedDate).day()];
 
