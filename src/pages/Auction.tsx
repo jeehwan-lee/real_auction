@@ -66,6 +66,11 @@ function Auction() {
   const handleClickExitButton = async () => {
     if (!user || !auction) return;
 
+    if (user.id === auction.userId) {
+      alert("옥션 개설자는 옥션을 나갈 수 없습니다.");
+      return;
+    }
+
     socket.emit("exit", {
       userId: user?.id,
       auctionId: params.id,
